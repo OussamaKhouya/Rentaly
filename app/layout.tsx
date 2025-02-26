@@ -27,9 +27,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
-      <body
-        className={`${bebasNeue.variable} ${ibmPlexSans.className} antialiased`}
-      >
+      <body className={`${bebasNeue.variable} ${ibmPlexSans.className}`}>
         {children}
       </body>
     </html>
