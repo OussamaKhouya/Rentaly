@@ -24,8 +24,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import FileUpload from "@/components/FileUpload";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -53,7 +53,7 @@ const AuthForm = <T extends FieldValues>({
     const result = await onSubmit(data);
 
     if (result.success) {
-      toast("Success", {
+      toast.success("Success", {
         description: isSignIn
           ? "You have successfully signed in."
           : "You have successfully signed up.",
@@ -61,7 +61,7 @@ const AuthForm = <T extends FieldValues>({
 
       router.push("/");
     } else {
-      toast(`Error ${isSignIn ? "signing in" : "signing up"}`, {
+      toast.error(`Error ${isSignIn ? "signing in" : "signing up"}`, {
         description: result.error ?? "An error occurred.",
       });
     }
