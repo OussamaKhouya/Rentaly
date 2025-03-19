@@ -1,24 +1,44 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 import BookList from "@/components/BookList";
-import { sampleBooks } from "@/constants";
+import { db } from "@/database/drizzle";
+import { books, borrowRecords } from "@/database/schema";
+import { desc, eq } from "drizzle-orm";
 
-const Page = () => {
+async function getBorrowedBooksByUser(userId: string) {
+  // Optional: Order by borrow date
+  return db
+    .select({
+      id: books.id,
+      title: books.title,
+      author: books.author,
+      genre: books.genre,
+      rating: books.rating,
+      totalCopies: books.totalCopies,
+      availableCopies: books.availableCopies,
+      description: books.description,
+      coverColor: books.coverColor,
+      coverUrl: books.coverUrl,
+      videoUrl: books.videoUrl,
+      summary: books.summary,
+      createdAt: books.createdAt,
+    })
+    .from(borrowRecords)
+    .innerJoin(books, eq(borrowRecords.bookId, books.id))
+    .where(eq(borrowRecords.userId, userId))
+    .orderBy(borrowRecords.borrowDate);
+}
+
+const Page = async () => {
+  const session = await auth();
+  const userId = session?.user?.id as string;
+
+  const latestBooks = (await getBorrowedBooksByUser(userId)) as Book[];
+  console.log(latestBooks);
   return (
     <>
-      <form
-        action={async () => {
-          "use server";
-
-          await signOut();
-        }}
-        className="mb-10"
-      >
-        <Button>Logout</Button>
-      </form>
-
-      <BookList title="Borrowed Books" books={sampleBooks} />
+      <BookList title="Borrowed Books" books={latestBooks} />
     </>
   );
 };
