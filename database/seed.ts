@@ -1,6 +1,6 @@
-import dummyBooks from "../dummybooks.json";
+import dummyCars from "../dummycars.json";
 import ImageKit from "imagekit";
-import { books } from "@/database/schema";
+import { books, cars } from "@/database/schema";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { config } from "dotenv";
@@ -8,7 +8,7 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 
 const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql });
+const db = drizzle({ client: sql });
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY!,
@@ -38,22 +38,22 @@ const seed = async () => {
   console.log("Seeding data...");
 
   try {
-    for (const book of dummyBooks) {
-      const coverUrl = (await uploadToImageKit(
-        book.coverUrl,
-        `${book.title}.jpg`,
-        "/books/covers",
+    for (const car of dummyCars) {
+      const imageUrl = (await uploadToImageKit(
+        car.imageUrl,
+        `${car.brand} ${car.model} ${car.year}.jpg`,
+        "/cars/covers",
       )) as string;
 
       const videoUrl = (await uploadToImageKit(
-        book.videoUrl,
-        `${book.title}.mp4`,
-        "/books/videos",
+        car.videoUrl,
+        `${car.brand} ${car.model} ${car.year}.mp4`,
+        "/cars/videos",
       )) as string;
 
-      await db.insert(books).values({
-        ...book,
-        coverUrl,
+      await db.insert(cars).values({
+        ...car,
+        imageUrl,
         videoUrl,
       });
     }
