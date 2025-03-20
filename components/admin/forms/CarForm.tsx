@@ -14,46 +14,60 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { bookSchema } from "@/lib/validations";
+import { carSchema } from "@/lib/validations";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
-import ColorPicker from "@/components/admin/ColorPicker";
 import { createBook } from "@/lib/admin/actions/book";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import ColorPicker from "@/components/admin/ColorPicker";
+import { createCar } from "@/lib/admin/actions/car";
 
 interface Props extends Partial<Book> {
   type?: "create" | "update";
 }
 
-const BookForm = ({ type, ...book }: Props) => {
+const CarForm = ({ type, ...book }: Props) => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof bookSchema>>({
-    resolver: zodResolver(bookSchema),
+  const form = useForm<z.infer<typeof carSchema>>({
+    resolver: zodResolver(carSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      author: "",
-      genre: "",
-      rating: 1,
-      totalCopies: 1,
-      coverUrl: "",
-      coverColor: "",
+      id: crypto.randomUUID(), // Generate a UUID for the id
+      brand: "",
+      model: "",
+      year: new Date().getFullYear(),
+      mileage: 0, // Default mileage
+      fuelType: "petrol", // Provide a valid default fuel type
+      transmission: "manual", // Provide a valid default transmission
+      pricePerDay: 1,
+      seatingCapacity: 4, // Provide a valid default seating capacity
+      color: "",
+      availabilityStatus: "available", // Provide a valid default availability status
+      imageUrl: "",
       videoUrl: "",
-      summary: "",
+      description: "",
+      createdAt: new Date(),
+      isRented: false,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof bookSchema>) => {
-    const result = await createBook(values);
+  const onSubmit = async (values: z.infer<typeof carSchema>) => {
+    const result = await createCar(values);
 
     if (result.success) {
       toast.success("Success", {
-        description: "Book created successfully",
+        description: "Car created successfully",
       });
 
-      router.push(`/admin/books/${result.data.id}`);
+      router.push(`/admin/cars/${result.data.id}`);
     } else {
       toast.error("Error", {
         description: result.message,
@@ -66,58 +80,18 @@ const BookForm = ({ type, ...book }: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name={"title"}
+          name="brand"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Book Title
+                Brand
               </FormLabel>
               <FormControl>
                 <Input
                   required
-                  placeholder="Book title"
+                  placeholder="Car brand"
                   {...field}
-                  className="book-form_input"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"author"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Author
-              </FormLabel>
-              <FormControl>
-                <Input
-                  required
-                  placeholder="Book author"
-                  {...field}
-                  className="book-form_input"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"genre"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Genre
-              </FormLabel>
-              <FormControl>
-                <Input
-                  required
-                  placeholder="Book genre"
-                  {...field}
-                  className="book-form_input"
+                  className="car-form_input"
                 />
               </FormControl>
               <FormMessage />
@@ -127,20 +101,132 @@ const BookForm = ({ type, ...book }: Props) => {
 
         <FormField
           control={form.control}
-          name={"rating"}
+          name="model"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Rating
+                Model
+              </FormLabel>
+              <FormControl>
+                <Input
+                  required
+                  placeholder="Car model"
+                  {...field}
+                  className="car-form_input"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="year"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Year
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  min={1886}
+                  max={new Date().getFullYear()}
+                  {...field}
+                  className="car-form_input"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="mileage"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Mileage
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  min={0}
+                  {...field}
+                  className="car-form_input"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="fuelType"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Fuel Type
+              </FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger className="car-form_input">
+                    <SelectValue placeholder="Select Fuel Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="petrol">Petrol</SelectItem>
+                    <SelectItem value="diesel">Diesel</SelectItem>
+                    <SelectItem value="electric">Electric</SelectItem>
+                    <SelectItem value="hybrid">Hybrid</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="transmission"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Transmission
+              </FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger className="car-form_input">
+                    <SelectValue placeholder="Select Transmission" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="manual">Manual</SelectItem>
+                    <SelectItem value="automatic">Automatic</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="pricePerDay"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Price Per Day
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min={1}
-                  max={5}
-                  placeholder="Book rating"
                   {...field}
-                  className="book-form_input"
+                  className="car-form_input"
                 />
               </FormControl>
               <FormMessage />
@@ -150,20 +236,19 @@ const BookForm = ({ type, ...book }: Props) => {
 
         <FormField
           control={form.control}
-          name={"totalCopies"}
+          name="seatingCapacity"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Total Copies
+                Seating Capacity
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min={1}
-                  max={10000}
-                  placeholder="Total copies"
+                  max={9}
                   {...field}
-                  className="book-form_input"
+                  className="car-form_input"
                 />
               </FormControl>
               <FormMessage />
@@ -173,34 +258,11 @@ const BookForm = ({ type, ...book }: Props) => {
 
         <FormField
           control={form.control}
-          name={"coverUrl"}
+          name="color"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Book Image
-              </FormLabel>
-              <FormControl>
-                <FileUpload
-                  type="image"
-                  accept="image/*"
-                  placeholder="Upload a book cover"
-                  folder="books/covers"
-                  variant="light"
-                  onFileChange={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"coverColor"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Primary Color
+                Color
               </FormLabel>
               <FormControl>
                 <ColorPicker
@@ -212,23 +274,29 @@ const BookForm = ({ type, ...book }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name={"description"}
+          name="availabilityStatus"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Book Description
+                Availability Status
               </FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Book description"
-                  {...field}
-                  rows={10}
-                  className="book-form_input"
-                />
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger className="car-form_input">
+                    <SelectValue placeholder="Select Availability" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="available">Available</SelectItem>
+                    <SelectItem value="rented">Rented</SelectItem>
+                    <SelectItem value="under_maintenance">
+                      Under Maintenance
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
@@ -236,17 +304,41 @@ const BookForm = ({ type, ...book }: Props) => {
 
         <FormField
           control={form.control}
-          name={"videoUrl"}
+          name="imageUrl"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Book Trailer
+                Car Image
+              </FormLabel>
+              <FormControl>
+                <FileUpload
+                  type="image"
+                  accept="image/*"
+                  placeholder="Upload car image"
+                  folder="books/covers"
+                  variant="light"
+                  onFileChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="videoUrl"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Car Video
               </FormLabel>
               <FormControl>
                 <FileUpload
                   type="video"
                   accept="video/*"
-                  placeholder="Upload a book trailer"
+                  placeholder="Upload car video"
                   folder="books/videos"
                   variant="light"
                   onFileChange={field.onChange}
@@ -257,33 +349,33 @@ const BookForm = ({ type, ...book }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name={"summary"}
+          name="description"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Book Summary
+                Car Description
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Book summary"
+                  placeholder="Car description"
                   {...field}
                   rows={5}
-                  className="book-form_input"
+                  className="car-form_input"
                 />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
         />
 
         <Button type="submit" className="book-form_btn text-white">
-          Add Book to Library
+          Add Car
         </Button>
       </form>
     </Form>
   );
 };
-export default BookForm;
+export default CarForm;

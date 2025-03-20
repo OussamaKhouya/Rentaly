@@ -32,8 +32,8 @@ const BookOverview = async ({
     isEligible: availableCopies > 0 && user?.status === "APPROVED",
     message:
       availableCopies <= 0
-        ? "Book is not available"
-        : "You are not eligible to borrow this book",
+        ? "Car is not available"
+        : "You are not eligible to borrow this car",
   };
   return (
     <section className="book-overview">

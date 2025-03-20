@@ -67,3 +67,22 @@ export const borrowRecords = pgTable("borrow_records", {
   status: BORROW_STATUS_ENUM("status").default("BORROWED").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
+
+// Car
+export const cars = pgTable("cars", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  brand: varchar("brand", { length: 255 }).notNull(),
+  model: varchar("model", { length: 255 }).notNull(),
+  year: integer("year").notNull(),
+  mileage: integer("mileage").notNull(),
+  fuelType: varchar("fuel_type", { length: 20 }).notNull(), // "petrol", "diesel", etc.
+  transmission: varchar("transmission", { length: 20 }).notNull(), // "manual", "automatic"
+  pricePerDay: integer("price_per_day").notNull(),
+  seatingCapacity: integer("seating_capacity").notNull(),
+  color: varchar("color", { length: 50 }).notNull(),
+  availabilityStatus: varchar("availability_status", { length: 30 }).notNull(), // "available", "rented", etc.
+  imageUrl: text("image_url").notNull(),
+  videoUrl: text("video_url").notNull(),
+  description: text("description").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+});

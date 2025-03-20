@@ -40,3 +40,44 @@ interface BorrowBookParams {
   bookId: string;
   userId: string;
 }
+
+//Car Code
+
+interface Car {
+  id: string;
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  fuelType: "petrol" | "diesel" | "electric" | "hybrid";
+  transmission: "manual" | "automatic";
+  pricePerDay: number;
+  seatingCapacity: number;
+  color: string;
+  availabilityStatus: "available" | "rented" | "under_maintenance";
+  location: string;
+  features: string[]; // e.g., ["GPS", "Bluetooth", "Air Conditioning"]
+  imageUrl: string;
+  videoUrl: string;
+  description: string;
+  createdAt?: Date | null;
+  isRented?: boolean;
+}
+
+interface CarParams {
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  fuelType: "petrol" | "diesel" | "electric" | "hybrid";
+  transmission: "manual" | "automatic";
+  pricePerDay: number;
+  seatingCapacity: number;
+  color: string;
+  availabilityStatus: "available" | "rented" | "under_maintenance";
+  imageUrl: string;
+  videoUrl: string;
+  description: string;
+  createdAt?: Date | null;
+  isRented?: boolean;
+}

@@ -28,3 +28,24 @@ export const bookSchema = z.object({
   videoUrl: z.string().nonempty(),
   summary: z.string().trim().min(10),
 });
+
+// Car
+
+export const carSchema = z.object({
+  id: z.string().uuid(),
+  brand: z.string().trim().min(2).max(50),
+  model: z.string().trim().min(1).max(50),
+  year: z.coerce.number().int().min(1886).max(new Date().getFullYear()), // Ensuring valid car production years
+  mileage: z.coerce.number().int().nonnegative(),
+  fuelType: z.enum(["petrol", "diesel", "electric", "hybrid"]),
+  transmission: z.enum(["manual", "automatic"]),
+  pricePerDay: z.coerce.number().positive(),
+  seatingCapacity: z.coerce.number().int().positive().lte(9), // Limiting to common passenger vehicle capacities
+  color: z.string().trim().min(3).max(20),
+  availabilityStatus: z.enum(["available", "rented", "under_maintenance"]),
+  imageUrl: z.string().nonempty(),
+  videoUrl: z.string().nonempty(),
+  description: z.string().trim().min(10).max(1000),
+  createdAt: z.coerce.date().nullable().optional(),
+  isRented: z.boolean().optional(),
+});

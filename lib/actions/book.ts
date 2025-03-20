@@ -18,7 +18,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
     if (!book.length || book[0].availableCopies <= 0) {
       return {
         success: false,
-        error: "Book is not available for borrowing",
+        error: "Car is not available for borrowing",
       };
     }
 

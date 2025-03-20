@@ -38,7 +38,7 @@ const Page = async () => {
   console.log(latestBooks);
   return (
     <>
-      <BookList title="Borrowed Books" books={latestBooks} />
+      <BookList title="Borrowed cars" books={latestBooks} />
     </>
   );
 };

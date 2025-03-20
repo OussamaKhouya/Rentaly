@@ -8,6 +8,13 @@
       "when": 1741820720692,
       "tag": "0000_elite_cassandra_nova",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1742425567541,
+      "tag": "0001_massive_moira_mactaggert",
+      "breakpoints": true
     }
   ]
 }

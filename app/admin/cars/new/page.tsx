@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <>
       <Button asChild className="back-btn">
-        <Link href="/admin/books">Go Back</Link>
+        <Link href="/admin/cars">Go Back</Link>
       </Button>
 
       <section className="w-full max-w-2xl">

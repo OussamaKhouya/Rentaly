@@ -16,12 +16,12 @@ const Sidebar = ({ session }: { session: Session }) => {
       <div>
         <div className="logo">
           <Image
-            src="/icons/admin/logo.svg"
+            src="/icons/admin/speedometer.svg"
             alt="logo"
             height={37}
             width={37}
           />
-          <h1>BookWise</h1>
+          <h1>Rentaly</h1>
         </div>
 
         <div className="mt-10 flex flex-col gap-5">
