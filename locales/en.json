@@ -1,0 +1,43 @@
+{
+  "CarCard": {
+    "day" : "day",
+    "View_Details" : "View Details",
+    "Rent_Now" : "Rent Now"
+  },
+  "Contact": {
+    "Contact_us" : "Contact Us",
+    "come_to_us" : "Come and meet us at our agency."
+  },
+
+  "LocaleSwitcher": {
+    "en": "English",
+    "fr": "French",
+    "label": "Language"
+  },
+
+  "Footer": {
+    "All_rights_reserved" : "All rights reserved",
+    "Privacy_Policy" : "Privacy Policy",
+    "Terms_of_Use" : "Terms of Use"
+  },
+  "Navbar": {
+    "Sign_In" : "Sign In"
+  },
+  "Hero": {
+    "Explore_Cars" : "Explore Cars",
+    "find_statement" : "Find, book, or rent a car - quickly and easily!",
+    "description" : "Streamline tour car rental experience with our efficient and easy-to-use app. Find the perfect car for your needs, book it in seconds, and pick it up at a convenient location near you."
+  },
+  "RentCar": {
+    "Enter_your_name" : "Enter your name...",
+    "Contact_Owner" : "Contact Owner on WhatsApp"
+  },
+  "ShowMore": {
+    "Show_More" : "Show More"
+  },
+  "Home": {
+    "Car_Catalogue": "Car Catalogue",
+    "Explore_the_cars": "Explore the cars you like and rent them in a few clicks!"
+  }
+
+}

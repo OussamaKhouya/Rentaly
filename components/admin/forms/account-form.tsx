@@ -27,7 +27,6 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
     defaultValues: {
       logo: account.logo,
       description: account.description,
-      whatsapp: account.whatsapp,
       facebook: account.facebook,
       instagram: account.instagram,
       email: account.email,

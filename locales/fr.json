@@ -1,0 +1,42 @@
+
+{
+  "CarCard": {
+    "day" : "jour",
+    "View_Details" : "détails",
+    "Rent_Now" : "Louer"
+  },
+  "LocaleSwitcher": {
+    "en": "Anglais",
+    "fr": "Français",
+    "label": "Langue"
+  },
+  "Contact": {
+    "Contact_us" : "Contactez-nous",
+    "come_to_us" : "Venez nous rencontrer dans notre agence."
+  },
+  "Footer": {
+    "All_rights_reserved" : "Tous droits réservés",
+    "Privacy_Policy" : "Politique de confidentialité",
+    "Terms_of_Use" : "Conditions d'utilisation"
+  },
+  "Navbar": {
+    "Sign_In" : "Se connecter"
+  },
+  "Hero": {
+    "Explore_Cars" : "Explorez les voitures",
+    "find_statement" : "Trouvez, réservez ou louez une voiture - rapidement et facilement !",
+    "description" : "Simplifiez votre expérience de location de voiture avec notre application efficace et facile à utiliser. Trouvez la voiture parfaite pour vos besoins, réservez-la en quelques secondes et récupérez-la dans un endroit pratique près de chez vous."
+  },
+  "RentCar": {
+    "Enter_your_name" : "Entrez votre nom...",
+    "Contact_Owner" : "Contacter le propriétaire sur WhatsApp"
+  },
+  "ShowMore": {
+    "Show_More" : "Afficher plus"
+  },
+  "Home": {
+    "Car_Catalogue": "Catalogue de voitures",
+    "Explore_the_cars": "Explorez les voitures que vous aimez et louez-les en quelques clics !"
+  }
+
+}
