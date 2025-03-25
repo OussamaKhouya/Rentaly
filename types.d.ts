@@ -69,15 +69,27 @@ interface CarParams {
   model: string;
   year: number;
   mileage: number;
-  fuelType: "petrol" | "diesel" | "electric" | "hybrid";
-  transmission: "manual" | "automatic";
+  fuelType?: "petrol" | "diesel" | "electric" | "hybrid";
+  transmission?: "manual" | "automatic";
   pricePerDay: number;
   seatingCapacity: number;
   color: string;
-  availabilityStatus: "available" | "rented" | "under_maintenance";
-  imageUrl: string;
-  videoUrl: string;
-  description: string;
+  availabilityStatus?: "available" | "rented" | "under_maintenance";
+  imageUrl: string | null;
+  videoUrl?: string | null;
+  description: string | null;
   createdAt?: Date | null;
   isRented?: boolean;
+}
+
+interface AccountParams {
+  logo: string;
+  description: string;
+  whatsapp: string;
+  facebook: string;
+  instagram: string;
+  email: string;
+  phone: string;
+  address: string;
+  map: string;
 }

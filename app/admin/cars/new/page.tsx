@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import CarForm from "@/components/admin/forms/CarForm";
+import CreateForm from "@/components/admin/forms/create-form";
 
 const Page = () => {
   return (
@@ -11,7 +11,7 @@ const Page = () => {
       </Button>
 
       <section className="w-full max-w-2xl">
-        <CarForm />
+        <CreateForm />
       </section>
     </>
   );

@@ -1,6 +1,6 @@
 import dummyCars from "../dummycars.json";
 import ImageKit from "imagekit";
-import { books, cars } from "@/database/schema";
+import { account, books, cars } from "@/database/schema";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { config } from "dotenv";
@@ -34,7 +34,7 @@ const uploadToImageKit = async (
   }
 };
 
-const seed = async () => {
+const seedCars = async () => {
   console.log("Seeding data...");
 
   try {
@@ -64,4 +64,27 @@ const seed = async () => {
   }
 };
 
-seed();
+const seedAccount = async () => {
+  console.log("Seeding data Account...");
+
+  try {
+    await db.insert(account).values({
+      address: "Bouchouk résidence annakhil 2, Salé",
+      description: "Location de voitures avec un service d'exception",
+      email: "reservation@ylhcar.ma",
+      facebook: "https://www.facebook.com/YLHCAR",
+      instagram: "https://instagram.com/ylhcarofficiel",
+      logo: "/account/YlhCar.64d9d53e70b373df215f_r5i0wQgSoU.png",
+      map: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.6178887009614!2d-6.785433923760421!3d34.07930831629983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda769aa78982d11%3A0x982c039dce50079d!2sR%C3%A9sidence%20bouchouk%2097%2F98!5e0!3m2!1sen!2sma!4v1742861687372!5m2!1sen!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+      phone: "+212661918917",
+      whatsapp: "https://wa.me/212661918917",
+    });
+
+    console.log("Data seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding data:", error);
+  }
+};
+
+seedCars();
+// seedAccount();

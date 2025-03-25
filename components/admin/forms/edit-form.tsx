@@ -13,12 +13,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { carSchema } from "@/lib/validations";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
-import { createBook } from "@/lib/admin/actions/book";
 import { toast } from "sonner";
 import {
   Select,
@@ -28,46 +27,45 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ColorPicker from "@/components/admin/ColorPicker";
-import { createCar } from "@/lib/admin/actions/car";
+import { updateCar } from "@/lib/admin/actions/car";
+import { useEffect } from "react";
 
-interface Props extends Partial<Book> {
-  type?: "create" | "update";
-}
-
-const CarForm = ({ type, ...book }: Props) => {
-  const router = useRouter();
-
+const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
   const form = useForm<z.infer<typeof carSchema>>({
     resolver: zodResolver(carSchema),
     defaultValues: {
-      id: crypto.randomUUID(), // Generate a UUID for the id
-      brand: "",
-      model: "",
-      year: new Date().getFullYear(),
-      mileage: 0, // Default mileage
-      fuelType: "petrol", // Provide a valid default fuel type
-      transmission: "manual", // Provide a valid default transmission
-      pricePerDay: 1,
-      seatingCapacity: 4, // Provide a valid default seating capacity
-      color: "",
-      availabilityStatus: "available", // Provide a valid default availability status
-      imageUrl: "",
-      videoUrl: "",
-      description: "",
-      createdAt: new Date(),
+      brand: car.brand,
+      model: car.model,
+      year: car.year,
+      mileage: car.mileage,
+      fuelType: car.fuelType,
+      transmission: car.transmission,
+      pricePerDay: car.pricePerDay,
+      seatingCapacity: car.seatingCapacity,
+      color: car.color,
+      availabilityStatus: car.availabilityStatus,
+      imageUrl: car.imageUrl,
+      description: car.description,
+      createdAt: car.createdAt,
       isRented: false,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof carSchema>) => {
-    const result = await createCar(values);
+  useEffect(() => {
+    const errors = form.formState.errors;
+    if (Object.keys(errors).length > 0) {
+      toast.error("Form validation failed. Please check your inputs.");
+      console.error(errors);
+    }
+  }, [form.formState.errors]);
 
+  const onSubmit = async (values: z.infer<typeof carSchema>) => {
+    const result = await updateCar(values, id);
     if (result.success) {
       toast.success("Success", {
         description: "Car created successfully",
       });
-
-      router.push(`/admin/cars/${result.data.id}`);
+      redirect("/admin/cars");
     } else {
       toast.error("Error", {
         description: result.message,
@@ -172,7 +170,7 @@ const CarForm = ({ type, ...book }: Props) => {
                 Fuel Type
               </FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
                     <SelectValue placeholder="Select Fuel Type" />
                   </SelectTrigger>
@@ -198,7 +196,7 @@ const CarForm = ({ type, ...book }: Props) => {
                 Transmission
               </FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
                     <SelectValue placeholder="Select Transmission" />
                   </SelectTrigger>
@@ -284,7 +282,7 @@ const CarForm = ({ type, ...book }: Props) => {
                 Availability Status
               </FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
                     <SelectValue placeholder="Select Availability" />
                   </SelectTrigger>
@@ -328,30 +326,6 @@ const CarForm = ({ type, ...book }: Props) => {
 
         <FormField
           control={form.control}
-          name="videoUrl"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Car Video
-              </FormLabel>
-              <FormControl>
-                <FileUpload
-                  type="video"
-                  accept="video/*"
-                  placeholder="Upload car video"
-                  folder="books/videos"
-                  variant="light"
-                  onFileChange={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="description"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
@@ -372,10 +346,10 @@ const CarForm = ({ type, ...book }: Props) => {
         />
 
         <Button type="submit" className="book-form_btn text-white">
-          Add Car
+          Update Car
         </Button>
       </form>
     </Form>
   );
 };
-export default CarForm;
+export default EditForm;

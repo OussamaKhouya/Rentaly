@@ -19,24 +19,14 @@ export const adminSideBarLinks = [
     text: "Home",
   },
   {
-    img: "/icons/admin/users.svg",
-    route: "/admin/users",
-    text: "All Users",
-  },
-  {
     img: "/icons/admin/book.svg",
     route: "/admin/cars",
     text: "All Cars",
   },
   {
-    img: "/icons/admin/bookmark.svg",
-    route: "/admin/book-requests",
-    text: "Borrow Requests",
-  },
-  {
     img: "/icons/admin/user.svg",
-    route: "/admin/account-requests",
-    text: "Account Requests",
+    route: "/admin/account",
+    text: "Account",
   },
 ];
 
