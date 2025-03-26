@@ -16,12 +16,10 @@ export default async function Home({ searchParams }: any) {
     limit: searchParams.limit || 10,
     model: searchParams.model || "",
   });
-  console.log("manufacturer", searchParams.manufacturer);
-  console.log("model", searchParams.model);
 
-  console.log(allCars);
   const t = await getTranslations("Home");
   const isDataEmpty = allCars.length < 1 || !allCars || !Array.isArray(allCars);
+
   return (
     <main className="overflow-hidden">
       <Hero />

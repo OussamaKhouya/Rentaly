@@ -93,3 +93,8 @@ export const updateAccount = async (params: AccountParams) => {
     };
   }
 };
+import { signOut } from "@/auth";
+
+export async function handleSignOut() {
+  await signOut();
+}

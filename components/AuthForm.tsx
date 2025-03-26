@@ -59,7 +59,7 @@ const AuthForm = <T extends FieldValues>({
           : "You have successfully signed up.",
       });
 
-      router.push("/");
+      router.push("/admin");
     } else {
       toast.error(`Error ${isSignIn ? "signing in" : "signing up"}`, {
         description: result.error ?? "An error occurred.",
@@ -70,12 +70,12 @@ const AuthForm = <T extends FieldValues>({
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-white">
-        {isSignIn ? "Welcome back to BookWise" : "Create your library account"}
+        {isSignIn ? "Welcome back to Dashboard" : "Create your  account"}
       </h1>
       <p className="text-light-100">
         {isSignIn
-          ? "Access the vast collection of resources, and stay updated"
-          : "Please complete all fields and upload a valid university ID to gain access to the library"}
+          ? "Access the control panel, and costumize your client's experience."
+          : "Please complete all fields and use a powerfull password to protect your account."}
       </p>
       <Form {...form}>
         <form
@@ -124,17 +124,14 @@ const AuthForm = <T extends FieldValues>({
           </Button>
         </form>
       </Form>
-
-      <p className="text-center text-base font-medium">
-        {isSignIn ? "New to BookWise? " : "Already have an account? "}
-
-        <Link
-          href={isSignIn ? "/sign-up" : "/sign-in"}
-          className="font-bold text-primary"
-        >
-          {isSignIn ? "Create an account" : "Sign in"}
-        </Link>
-      </p>
+      {!isSignIn ? (
+        <p className="text-center text-base font-medium">
+          Already have an account?
+          <Link href="/sign-in" className="font-bold text-primary">
+            "Sign in"
+          </Link>
+        </p>
+      ) : null}
     </div>
   );
 };

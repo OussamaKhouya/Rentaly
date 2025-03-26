@@ -4,7 +4,7 @@ export default {
   darkMode: ["class"],
   content: [
     "./components/home/*.{js,ts,jsx,tsx,mdx}",
-    "./app/home/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/(root)/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

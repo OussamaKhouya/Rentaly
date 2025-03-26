@@ -83,13 +83,13 @@ interface CarParams {
 }
 
 interface AccountParams {
-  logo: string;
-  description: string;
-  whatsapp: string;
-  facebook: string;
-  instagram: string;
-  email: string;
-  phone: string;
-  address: string;
-  map: string;
+  logo?: string;
+  description?: string;
+  whatsapp?: string;
+  facebook?: string;
+  instagram?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  map?: string;
 }

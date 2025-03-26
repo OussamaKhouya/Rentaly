@@ -1,4 +1,5 @@
 import dummyCars from "../dummycars.json";
+import dummyBooks from "../dummybooks.json";
 import ImageKit from "imagekit";
 import { account, books, cars } from "@/database/schema";
 import { neon } from "@neondatabase/serverless";
@@ -31,6 +32,36 @@ const uploadToImageKit = async (
     return response.filePath;
   } catch (error) {
     console.error("Error uploading image to ImageKit:", error);
+  }
+};
+
+const seedBooks = async () => {
+  console.log("Seeding data...");
+
+  try {
+    for (const book of dummyBooks) {
+      const coverUrl = (await uploadToImageKit(
+        book.coverUrl,
+        `${book.title}.jpg`,
+        "/books/covers",
+      )) as string;
+
+      const videoUrl = (await uploadToImageKit(
+        book.videoUrl,
+        `${book.title}.mp4`,
+        "/books/videos",
+      )) as string;
+
+      await db.insert(books).values({
+        ...book,
+        coverUrl,
+        videoUrl,
+      });
+    }
+
+    console.log("Data seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding data:", error);
   }
 };
 
@@ -86,5 +117,6 @@ const seedAccount = async () => {
   }
 };
 
-seedCars();
+// seedBooks();
+// seedCars();
 // seedAccount();

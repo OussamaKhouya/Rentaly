@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import {useTransition} from 'react';
-import {Locale} from '@/i18n/config';
-import {setUserLocale} from '@/services/locale';
-import * as Select from '@radix-ui/react-select';
-import {CheckIcon, LanguageIcon} from "@heroicons/react/16/solid";
+import clsx from "clsx";
+import { useTransition } from "react";
+import { Locale } from "@/i18n/config";
+import { setUserLocale } from "@/services/locale";
+import * as Select from "@radix-ui/react-select";
+import { CheckIcon, LanguageIcon } from "@heroicons/react/16/solid";
 
 type Props = {
   defaultValue: string;
-  items: Array<{value: string; label: string}>;
+  items: Array<{ value: string; label: string }>;
   label: string;
 };
 
 export default function LocaleSwitcherSelect({
   defaultValue,
   items,
-  label
+  label,
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
@@ -33,8 +33,8 @@ export default function LocaleSwitcherSelect({
         <Select.Trigger
           aria-label={label}
           className={clsx(
-            'rounded-sm p-2 transition-colors group-hover:text-gray-200 ',
-            isPending && 'pointer-events-none opacity-60'
+            "rounded-sm p-2 transition-colors group-hover:text-gray-200 ",
+            isPending && "pointer-events-none opacity-60",
           )}
         >
           <Select.Icon>
@@ -44,7 +44,7 @@ export default function LocaleSwitcherSelect({
         <Select.Portal>
           <Select.Content
             align="end"
-            className="min-w-[8rem] overflow-hidden rounded-sm bg-white py-1 shadow-md"
+            className="min-w-[8rem] overflow-hidden rounded-sm bg-white py-1 shadow-md z-50"
             position="popper"
           >
             <Select.Viewport>
