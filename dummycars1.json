@@ -8,7 +8,7 @@
     "year": 2024,
     "description": "Dynamisme et confort pour tous vos trajets.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "manual"
   },
   {
@@ -20,7 +20,7 @@
     "year": 2024,
     "description": "Le partenaire idéal pour vos livraisons et déplacements pro.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "manual"
   },
   {
@@ -32,7 +32,7 @@
     "year": 2024,
     "description": "L’alliance parfaite entre design, confort et performance.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -44,7 +44,7 @@
     "year": 2024,
     "description": "Polyvalence et confort pour tous vos trajets.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -56,7 +56,7 @@
     "year": 2024,
     "description": "Style Italien,Élégance et plaisir de conduite à ciel ouvert.",
     "availabilityStatus": "rented",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -68,7 +68,7 @@
     "year": 2024,
     "description": "Polyvalence et confort pour tous vos trajets.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -80,7 +80,7 @@
     "year": 2025,
     "description": "Le SUV compact alliant style et performance.",
     "availabilityStatus": "rented",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -92,7 +92,7 @@
     "year": 2024,
     "description": "Dynamisme et confort pour tous vos trajets.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "manual"
   },
   {
@@ -104,7 +104,7 @@
     "year": 2024,
     "description": "Confort, robustesse économie pour toutes vos aventures.",
     "availabilityStatus": "rented",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "manual"
   },
   {
@@ -116,7 +116,7 @@
     "year": 2025,
     "description": "Dynamisme et confort 7 places pour tous vos trajets.",
     "availabilityStatus": "rented",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "automatic"
   },
   {
@@ -128,7 +128,7 @@
     "year": 2024,
     "description": "Confort, performance et économie, parfaite pour les familles.",
     "availabilityStatus": "available",
-    "mileage": 12000,
+    "order": 12000,
     "seatingCapacity": 5,"transmission": "manual"
   }
 ]

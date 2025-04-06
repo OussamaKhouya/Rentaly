@@ -89,7 +89,7 @@ export const cars = pgTable("cars", {
   brand: varchar("brand", { length: 255 }).notNull(),
   model: varchar("model", { length: 255 }).notNull(),
   year: integer("year").notNull(),
-  mileage: integer("mileage").notNull(),
+  order: integer("order").default(0).notNull(),
   fuelType: FUEL_TYPE_ENUM("fuel_type").default("petrol").notNull(), // "petrol", "diesel", etc.
   transmission: TRANSISSION_ENUM("transmission").default("manual").notNull(), // "manual", "automatic"
   pricePerDay: integer("price_per_day").notNull(),

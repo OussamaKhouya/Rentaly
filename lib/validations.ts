@@ -36,7 +36,7 @@ export const carSchema = z.object({
   brand: z.string().trim().min(2).max(50),
   model: z.string().trim().min(1).max(50),
   year: z.coerce.number().int().min(1886).max(new Date().getFullYear()), // Ensuring valid car production years
-  mileage: z.coerce.number().int().nonnegative(),
+  order: z.coerce.number().int().nonnegative(),
   fuelType: z.enum(["petrol", "diesel", "electric", "hybrid"]).optional(),
   transmission: z.enum(["manual", "automatic"]).optional(),
   pricePerDay: z.coerce.number().positive(),

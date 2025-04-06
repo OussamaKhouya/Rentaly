@@ -39,7 +39,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
       brand: car.brand,
       model: car.model,
       year: car.year,
-      mileage: car.mileage,
+      order: car.order,
       fuelType: car.fuelType || undefined,
       transmission: car.transmission || undefined,
       pricePerDay: car.pricePerDay,
@@ -155,11 +155,11 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
 
         <FormField
           control={form.control}
-          name="mileage"
+          name="order"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Mileage
+                Order
               </FormLabel>
               <FormControl>
                 <Input

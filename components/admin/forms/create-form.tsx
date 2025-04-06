@@ -27,7 +27,7 @@ const CreateForm = () => {
             brand: "",
             model: "",
             year: new Date().getFullYear(),
-            mileage: 0, // Default mileage
+            order: 0, // Default order
             fuelType: "petrol", // Provide a valid default fuel type
             transmission: "manual", // Provide a valid default transmission
             pricePerDay: 1,
@@ -43,7 +43,11 @@ const CreateForm = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof carSchema>) => {
-        const result = await createCar(values);
+        const result = await createCar({
+            ...values,
+            imageUrl: values.imageUrl || null,
+            description: values.description || null,
+        });
 
         if (result.success) {
             toast.success("Success", {
@@ -127,11 +131,11 @@ const CreateForm = () => {
 
                 <FormField
                     control={form.control}
-                    name="mileage"
+                    name="order"
                     render={({field}) => (
                         <FormItem className="flex flex-col gap-1">
                             <FormLabel className="text-base font-normal text-dark-500">
-                                Mileage
+                                Order
                             </FormLabel>
                             <FormControl>
                                 <Input

@@ -54,7 +54,7 @@ CREATE TABLE "cars" (
 	"brand" varchar(255) NOT NULL,
 	"model" varchar(255) NOT NULL,
 	"year" integer NOT NULL,
-	"mileage" integer NOT NULL,
+	"order" integer NOT NULL,
 	"fuel_type" "fuel_type" DEFAULT 'petrol' NOT NULL,
 	"transmission" "transmission" DEFAULT 'manual' NOT NULL,
 	"price_per_day" integer NOT NULL,

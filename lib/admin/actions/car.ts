@@ -2,7 +2,7 @@
 
 import {account, cars} from "@/database/schema";
 import {db} from "@/database/drizzle";
-import {desc, eq} from "drizzle-orm";
+import {desc, eq,asc} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 import {signOut} from "@/auth";
 import {AccountParams, Car, CarParams} from "@/types";
@@ -57,12 +57,24 @@ export const fetchCarById = async (id: string): Promise<CarParams> => {
     }
 };
 
-export const fetchAllCars = async (): Promise<CarParams[]> => {
+export const fetchAllCars = async (): Promise<Car[]> => {
     try {
         return (await db
             .select()
             .from(cars)
             .orderBy(desc(cars.createdAt))) as Car[];
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch car.");
+    }
+};
+
+export const fetchAllCarsByOrder = async (): Promise<Car[]> => {
+    try {
+        return (await db
+            .select()
+            .from(cars)
+            .orderBy(asc(cars.order))) as Car[];
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch car.");

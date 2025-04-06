@@ -69,7 +69,7 @@ export type CarParams = {
   brand: string;
   model: string;
   year: number;
-  mileage: number;
+  order: number;
   fuelType: "petrol" | "diesel" | "electric" | "hybrid";
   transmission: "manual" | "automatic";
   pricePerDay: number;

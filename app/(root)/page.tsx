@@ -2,12 +2,10 @@ import Hero from "@/components/home/Hero";
 import CarCard from "@/components/home/CarCard";
 import Contact from "@/components/home/Contact";
 import {getTranslations} from "next-intl/server";
-import {fetchAccount, fetchAllCars} from "@/lib/admin/actions/car";
-import {getCarOfTheWeek} from "@/lib/actions/car";
-import {CarParams} from "@/types";
+import {fetchAccount, fetchAllCarsByOrder} from "@/lib/admin/actions/car";
 
-export default async function Home({searchParams}: any) {
-    const allCars = await fetchAllCars();
+export default async function Home() {
+    const allCars = await fetchAllCarsByOrder();
 
     const account = await fetchAccount();
     const t = await getTranslations("Home");
@@ -15,7 +13,7 @@ export default async function Home({searchParams}: any) {
 
     return (
         <main className="overflow-hidden">
-            <Hero />
+            <Hero/>
             <div
                 className={"mt-12 padding-x padding-y" + "max-width"}
                 id={"discover"}

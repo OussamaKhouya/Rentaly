@@ -48,15 +48,13 @@ interface Car {
   brand: string;
   model: string;
   year: number;
-  mileage: number;
+  order: number;
   fuelType: "petrol" | "diesel" | "electric" | "hybrid";
   transmission: "manual" | "automatic";
   pricePerDay: number;
   seatingCapacity: number;
   color: string;
   availabilityStatus: "available" | "rented" | "under_maintenance";
-  location: string;
-  features: string[]; // e.g., ["GPS", "Bluetooth", "Air Conditioning"]
   imageUrl: string;
   videoUrl: string;
   description: string;
@@ -69,7 +67,7 @@ export interface CarParams {
   brand: string;
   model: string;
   year: number;
-  mileage: number;
+  order: number;
   fuelType?: "petrol" | "diesel" | "electric" | "hybrid";
   transmission?: "manual" | "automatic";
   pricePerDay: number;

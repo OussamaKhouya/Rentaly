@@ -12,7 +12,7 @@ export const getCarOfTheWeek = async () => {
         brand: cars.brand,
         model: cars.model,
         year: cars.year,
-        mileage: cars.mileage,
+        order: cars.order,
         fuelType: cars.fuelType,
         transmission: cars.transmission,
         pricePerDay: cars.pricePerDay,
