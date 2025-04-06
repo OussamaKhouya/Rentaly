@@ -52,3 +52,38 @@ export interface ShowMoreProps {
     pageNumber: number;
     isNext: boolean;
 }
+export interface AccountParams {
+  logo?: string;
+  description?: string;
+  whatsapp?: string;
+  facebook?: string;
+  instagram?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  map?: string;
+}
+
+export type CarParams = {
+  id?: string;
+  brand: string;
+  model: string;
+  year: number;
+  mileage: number;
+  fuelType: "petrol" | "diesel" | "electric" | "hybrid";
+  transmission: "manual" | "automatic";
+  pricePerDay: number;
+  seatingCapacity: number;
+  color: string | null;
+  availabilityStatus: "available" | "rented" | "under_maintenance";
+  imageUrl?: string | null;
+  videoUrl?: string | null;
+  description?: string | null;
+  featured?: boolean;
+  createdAt?: Date | null;
+};
+
+export type Car = CarParams & {
+  location: string;
+  features: string[];
+};

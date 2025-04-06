@@ -6,18 +6,21 @@ interface Props {
   onPickerChange: (color: string) => void;
 }
 
-const ColorPicker = ({ value, onPickerChange }: Props) => {
+const ColorPicker = ({ value = "#000000", onPickerChange }: Props) => {
+  // Ensure value is a valid hex color or default to black
+  const safeColor = value && /^#[0-9A-Fa-f]{6}$/.test(value) ? value : "#000000";
+  
   return (
     <div className="relative">
       <div className="flex flex-row items-center">
         <p>#</p>
         <HexColorInput
-          color={value}
+          color={safeColor}
           onChange={onPickerChange}
           className="hex-input"
         />
       </div>
-      <HexColorPicker color={value} onChange={onPickerChange} />
+      <HexColorPicker color={safeColor} onChange={onPickerChange} />
     </div>
   );
 };

@@ -2,23 +2,49 @@
   "CarCard": {
     "day" : "day",
     "View_Details" : "View Details",
-    "Rent_Now" : "Rent Now"
+    "Rent_Now" : "Rent Now",
+    "manual": "manual",
+    "automatic": "automatic",
+    "available": "available",
+    "rented": "rented",
+    "under_maintenance": "under maintenance ",
+    "petrol": "petrol",
+    "diesel": "diesel",
+    "electric": "electric",
+    "hybrid": "hybrid"
   },
   "Contact": {
     "Contact_us" : "Contact Us",
-    "come_to_us" : "Come and meet us at our agency."
+    "come_to_us" : "Come and meet us at our agency.",
+    "phone": "Call us",
+    "email": "Email us",
+    "address": "Visit us"
   },
 
   "LocaleSwitcher": {
-    "en": "English",
     "fr": "French",
+    "en": "English",
     "label": "Language"
   },
 
   "Footer": {
     "All_rights_reserved" : "All rights reserved",
     "Privacy_Policy" : "Privacy Policy",
-    "Terms_of_Use" : "Terms of Use"
+    "Terms_of_Use" : "Terms of Use",
+    "description": "Your trusted partner for car rentals",
+    "Links": "Links",
+    "About": "About",
+    "Contact": "Contact",
+    "Terms": "Terms",
+    "Privacy": "Privacy",
+    "email": "Email us",
+    "phone": "Call us",
+    "address": "Visit us",
+    "Social": "Social Media",
+    "Facebook": "Facebook",
+    "Instagram": "Instagram",
+    "WhatsApp": "WhatsApp",
+    "rights": "All rights reserved"
   },
   "Navbar": {
     "Sign_In" : "Sign In"
@@ -26,11 +52,41 @@
   "Hero": {
     "Explore_Cars" : "Explore Cars",
     "find_statement" : "Find, book, or rent a car - quickly and easily!",
-    "description" : "Streamline tour car rental experience with our efficient and easy-to-use app. Find the perfect car for your needs, book it in seconds, and pick it up at a convenient location near you."
+    "description" : "Streamline tour car rental experience with our efficient and easy-to-use app. Find the perfect car for your needs, book it in seconds, and pick it up at a convenient location near you.",
+    "Car_of_the_Week": "Car of the Week",
+    "Price_per_day": "Price per day",
+    "Rent_Now": "Rent Now",
+    "Year": "Year",
+    "Transmission": "Transmission",
+    "Fuel_Type": "Fuel Type",
+    "Special_Offer": "Special Offer",
+    "DH_per_day": "DH/day",
+    "Save_15": "SAVE 15%",
+    "manual": "manual",
+    "automatic": "automatic",
+    "available": "available",
+    "rented": "rented",
+    "under_maintenance": "under maintenance ",
+    "petrol": "petrol",
+    "diesel": "diesel",
+    "electric": "electric",
+    "hybrid": "hybrid",
+    "No_Featured_Car": "No Featured Car",
+    "Check_Back_Soon": "Check back soon for our featured car of the week!"
   },
   "RentCar": {
-    "Enter_your_name" : "Enter your name...",
-    "Contact_Owner" : "Contact Owner on WhatsApp"
+    "Enter_your_name": "Enter your name...",
+    "Contact_Owner": "Contact Owner on WhatsApp",
+    "Phone_Number": "Phone Number",
+    "Start_Date": "Start Date",
+    "End_Date": "End Date",
+    "Enter_phone": "Enter your phone number...",
+    "Select_dates": "Select rental dates",
+    "Name_Required": "Name is required",
+    "Phone_Required": "Phone number is required",
+    "Dates_Required": "Please select both start and end dates",
+    "Invalid_Phone": "Please enter a valid phone number",
+    "WhatsApp_Message": "Hello, I am {name} and I am interested in renting the {brand} {model} ({year}).\nPhone: {phone}\nRental Period: {startDate} to {endDate}"
   },
   "ShowMore": {
     "Show_More" : "Show More"

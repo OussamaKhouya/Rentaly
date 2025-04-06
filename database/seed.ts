@@ -1,4 +1,4 @@
-import dummyCars from "../dummycars.json";
+import dummyCars from "../dummycars1.json";
 import dummyBooks from "../dummybooks.json";
 import ImageKit from "imagekit";
 import { account, books, cars } from "@/database/schema";
@@ -76,16 +76,9 @@ const seedCars = async () => {
         "/cars/covers",
       )) as string;
 
-      const videoUrl = (await uploadToImageKit(
-        car.videoUrl,
-        `${car.brand} ${car.model} ${car.year}.mp4`,
-        "/cars/videos",
-      )) as string;
-
       await db.insert(cars).values({
         ...car,
         imageUrl,
-        videoUrl,
       });
     }
 
@@ -118,5 +111,5 @@ const seedAccount = async () => {
 };
 
 // seedBooks();
-// seedCars();
+seedCars();
 // seedAccount();

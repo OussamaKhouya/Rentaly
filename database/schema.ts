@@ -7,6 +7,7 @@ import {
   date,
   pgEnum,
   timestamp,
+  boolean,
 } from "drizzle-orm/pg-core";
 
 export const STATUS_ENUM = pgEnum("status", [
@@ -93,13 +94,14 @@ export const cars = pgTable("cars", {
   transmission: TRANSISSION_ENUM("transmission").default("manual").notNull(), // "manual", "automatic"
   pricePerDay: integer("price_per_day").notNull(),
   seatingCapacity: integer("seating_capacity").notNull(),
-  color: varchar("color", { length: 50 }).notNull(),
+  color: varchar("color", { length: 50 }),
   availabilityStatus: AVAILABILITY_STATUS_ENUM("availability_status")
     .default("available")
     .notNull(), // "available", "rented", etc.
   imageUrl: text("image_url"),
   videoUrl: text("video_url"),
   description: text("description"),
+  featured: boolean("featured").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 

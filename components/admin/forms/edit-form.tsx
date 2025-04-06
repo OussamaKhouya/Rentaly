@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { carSchema } from "@/lib/validations";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -29,8 +29,10 @@ import {
 import ColorPicker from "@/components/admin/ColorPicker";
 import { updateCar } from "@/lib/admin/actions/car";
 import { useEffect } from "react";
+import { CarParams } from "@/types";
 
 const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof carSchema>>({
     resolver: zodResolver(carSchema),
     defaultValues: {
@@ -38,14 +40,14 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
       model: car.model,
       year: car.year,
       mileage: car.mileage,
-      fuelType: car.fuelType,
-      transmission: car.transmission,
+      fuelType: car.fuelType || undefined,
+      transmission: car.transmission || undefined,
       pricePerDay: car.pricePerDay,
       seatingCapacity: car.seatingCapacity,
       color: car.color,
-      availabilityStatus: car.availabilityStatus,
-      imageUrl: car.imageUrl,
-      description: car.description,
+      availabilityStatus: car.availabilityStatus || undefined,
+      imageUrl: car.imageUrl || undefined,
+      description: car.description || undefined,
       createdAt: car.createdAt,
       isRented: false,
     },
@@ -60,15 +62,26 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
   }, [form.formState.errors]);
 
   const onSubmit = async (values: z.infer<typeof carSchema>) => {
-    const result = await updateCar(values, id);
-    if (result.success) {
-      toast.success("Success", {
-        description: "Car created successfully",
-      });
-      redirect("/admin/cars");
-    } else {
+    try {
+      const result = await updateCar({
+        ...values,
+        imageUrl: values.imageUrl || null,
+        description: values.description || null,
+      }, id);
+      
+      if (result.success) {
+        toast.success("Success", {
+          description: "Car updated successfully",
+        });
+        router.push("/admin/cars");
+      } else {
+        toast.error("Error", {
+          description: result.message,
+        });
+      }
+    } catch (error) {
       toast.error("Error", {
-        description: result.message,
+        description: "Failed to update car",
       });
     }
   };
@@ -313,7 +326,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
                   type="image"
                   accept="image/*"
                   placeholder="Upload car image"
-                  folder="books/covers"
+                  folder="cars/covers"
                   variant="light"
                   onFileChange={field.onChange}
                   value={field.value}
@@ -352,4 +365,5 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
     </Form>
   );
 };
+
 export default EditForm;

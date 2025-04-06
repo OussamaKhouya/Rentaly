@@ -95,13 +95,13 @@ const Sidebar = ({ session }: { session: Session }) => {
                 <p className="text-xs text-light-500">{session?.user?.email}</p>
               </div>
             </div>
-            <li>
-              <form action={handleSignOut}>
-                <Button type="submit" className="w-full">
-                  Logout <LogOut />
-                </Button>
-              </form>
-            </li>
+          </li>
+          <li>
+            <form action={handleSignOut}>
+              <Button type="submit" className="w-full">
+                Logout <LogOut />
+              </Button>
+            </form>
           </li>
         </ul>
       </div>

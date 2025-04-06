@@ -15,6 +15,20 @@
       "when": 1742862031447,
       "tag": "0001_new_timeslip",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743186305156,
+      "tag": "0002_white_shard",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743795481467,
+      "tag": "0003_reflective_gauntlet",
+      "breakpoints": true
     }
   ]
 }

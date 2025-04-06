@@ -20,9 +20,9 @@ export default function DarkModeToggle() {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
             {theme === "dark" ?
-                <Image  src={'/light-mood.svg'} alt={'light mode'} width={30} height={30} />
+                <Image  src={'/light-mood.svg'} alt={'light mode'} width={24} height={24} />
                 :
-                <Image src={'/dark-mood.svg'} alt={'dark mode'} width={30} height={30} />
+                <Image src={'/dark-mood.svg'} alt={'dark mode'} width={24} height={24} />
             }
         </button>
     );

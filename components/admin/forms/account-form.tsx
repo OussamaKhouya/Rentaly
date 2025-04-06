@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { updateAccount } from "@/lib/admin/actions/car";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import {AccountParams} from "@/types";
 
 const AccountForm = ({ account }: { account: AccountParams }) => {
   const form = useForm<z.infer<typeof accountSchema>>({
@@ -29,6 +30,7 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
       description: account.description,
       facebook: account.facebook,
       instagram: account.instagram,
+      whatsapp: account.whatsapp,
       email: account.email,
       phone: account.phone,
       address: account.address,

@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import { ThemeProvider } from "@/components/home/ThemeProvider";
+import { fetchAccount } from "@/lib/admin/actions/car";
 
 export const metadata: Metadata = {
   title: "Rentaly",
@@ -17,6 +18,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
+  const account = await fetchAccount();
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -24,11 +26,11 @@ export default async function RootLayout({
         <ThemeProvider>
           <NextIntlClientProvider>
             <div className={"overflow-visible"}>
-              <Navbar />
+              <Navbar account={account} />
             </div>
 
             {children}
-            <Footer />
+            <Footer account={account} />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

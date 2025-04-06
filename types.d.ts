@@ -1,4 +1,4 @@
-interface Book {
+export interface Book {
   id: string;
   title: string;
   author: string;
@@ -64,7 +64,8 @@ interface Car {
   isRented?: boolean;
 }
 
-interface CarParams {
+export interface CarParams {
+  id?: string;
   brand: string;
   model: string;
   year: number;

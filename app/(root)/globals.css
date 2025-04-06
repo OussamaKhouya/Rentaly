@@ -39,7 +39,7 @@
 
 /* START: Hero styles */
 .hero {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+  @apply flex xl:flex-row flex-col-reverse gap-5 relative z-0 max-w-[1440px] mx-auto;
 }
 
 .hero__title {
@@ -55,11 +55,11 @@
 }
 
 .hero__image {
-  @apply relative xl:w-full w-[90%] xl:h-full h-[590px] z-0;
+  @apply relative xl:w-full w-[90%] xl:h-full h-[390px] z-0;
 }
 
 .hero__image-overlay {
-  @apply absolute xl:-top-24 xl:-right-1/2 -right-1/4 bg-hero-bg bg-repeat-round -z-10 w-full xl:h-screen h-[590px] overflow-hidden;
+  @apply absolute xl:-top-24 xl:-right-1/2 bg-hero-bg bg-repeat-round -z-10 w-full xl:h-screen h-[390px] overflow-hidden;
 }
 /* END: Hero styles */
 
