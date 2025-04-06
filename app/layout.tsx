@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Rentaly",
-  description: "Rentaly is a car rental management solution.",
+  title: "Cathédrale Cars",
+  description: "L'élégance au service de votre voyage.",
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
