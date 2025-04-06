@@ -7,11 +7,6 @@ import Footer from "@/components/home/Footer";
 import { ThemeProvider } from "@/components/home/ThemeProvider";
 import { fetchAccount } from "@/lib/admin/actions/car";
 
-export const metadata: Metadata = {
-  title: "Rentaly",
-  description: "Discover the best cars in the world.",
-};
-
 export default async function RootLayout({
   children,
 }: {
