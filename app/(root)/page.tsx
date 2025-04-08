@@ -13,7 +13,7 @@ export default async function Home() {
 
     return (
         <main className="overflow-hidden">
-            <Hero/>
+            <Hero account={account}/>
             <div
                 className={"mt-12 padding-x padding-y" + "max-width"}
                 id={"discover"}
@@ -28,7 +28,7 @@ export default async function Home() {
                 {!isDataEmpty ? (
                     <section>
                         <div className="home__cars-wrapper">
-                            {allCars?.map((car, index) => <CarCard key={index} car={car}/>)}
+                            {allCars?.map((car, index) => <CarCard key={index} car={car} account={account}/>)}
                         </div>
                     </section>
                 ) : (

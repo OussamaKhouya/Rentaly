@@ -8,10 +8,14 @@ import { CalendarDays, Car, Fuel, Gauge, DollarSign } from "lucide-react";
 import { IKImage } from "imagekitio-next";
 import config from "@/lib/config";
 import RentCar from "./RentCar";
-import { Car as CarType } from "@/types";
+import { Car as CarType, AccountParams } from "@/types";
 import { fetchFeaturedCar } from "@/lib/admin/actions/car";
 
-function Hero() {
+interface HeroProps {
+  account: AccountParams;
+}
+
+function Hero({ account }: HeroProps) {
   const t = useTranslations("Hero");
   const [isRentOpen, setIsRentOpen] = useState(false);
   const [carOfTheWeek, setCarOfTheWeek] = useState<CarType | null>(null);
@@ -214,6 +218,7 @@ function Hero() {
         isRentOpen={isRentOpen} 
         closeModal={() => setIsRentOpen(false)} 
         car={carOfTheWeek}
+        account={account}
       />
     </>
   );

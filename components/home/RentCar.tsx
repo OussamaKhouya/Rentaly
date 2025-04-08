@@ -6,15 +6,16 @@ import {Dialog, Transition} from "@headlessui/react";
 import CustomButton from "@/components/home/CustomButton";
 import {useTranslations} from "use-intl";
 import CarImage from "../CarImage";
-import {Car} from "@/types";
+import {Car, AccountParams} from "@/types";
 
 interface RentCarProps {
     isRentOpen: boolean;
     closeModal: () => void;
     car: Car;
+    account: AccountParams;
 }
 
-const RentCar = ({isRentOpen, closeModal, car}: RentCarProps) => {
+const RentCar = ({isRentOpen, closeModal, car, account}: RentCarProps) => {
     const [userName, setUserName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [startDate, setStartDate] = useState("");
@@ -24,7 +25,7 @@ const RentCar = ({isRentOpen, closeModal, car}: RentCarProps) => {
         phone: "",
         dates: ""
     });
-    const ownerPhoneNumber = "+212767589193"; // Replace with the actual owner's WhatsApp number
+    const ownerPhoneNumber = account?.phone || "+212767589193"; // Use phone from account or fallback to default
 
     const validateForm = () => {
         const newErrors = {

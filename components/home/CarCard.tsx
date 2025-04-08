@@ -4,14 +4,15 @@ import Image from "next/image";
 import CustomButton from "@/components/home/CustomButton";
 import RentCar from "@/components/home/RentCar";
 import {useTranslations} from "use-intl";
-import {Car} from "@/types";
+import {Car, AccountParams} from "@/types";
 import CarImage from "@/components/CarImage";
 
 interface CarCardProps {
-    car: Car
+    car: Car;
+    account: AccountParams;
 }
 
-const CarCard = ({car}: CarCardProps) => {
+const CarCard = ({car, account}: CarCardProps) => {
     const [isRentOpen, setIsRentOpen] = useState(false);
     const t = useTranslations("CarCard");
 
@@ -126,6 +127,7 @@ const CarCard = ({car}: CarCardProps) => {
                 isRentOpen={isRentOpen}
                 closeModal={() => setIsRentOpen(false)}
                 car={car}
+                account={account}
             />
         </div>
     );
