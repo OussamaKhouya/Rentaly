@@ -86,7 +86,7 @@
     "Phone_Required": "Phone number is required",
     "Dates_Required": "Please select both start and end dates",
     "Invalid_Phone": "Please enter a valid phone number",
-    "WhatsApp_Message": "Hello, I am {name} and I am interested in renting the {brand} {model} ({year}).\nPhone: {phone}\nRental Period: {startDate} to {endDate}"
+    "WhatsApp_Message": "Hello, I am {name} and I am interested in renting the {brand} {model} ({year}).\nPhone: {phone}\nRental Period: {startDate} to {endDate} ({days} days)"
   },
   "ShowMore": {
     "Show_More" : "Show More"

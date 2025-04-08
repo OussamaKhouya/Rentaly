@@ -61,6 +61,13 @@ const RentCar = ({isRentOpen, closeModal, car, account}: RentCarProps) => {
         if (!validateForm()) {
             return;
         }
+
+        // Calculate number of days
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const diffTime = Math.abs(end.getTime() - start.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
         const message = t("WhatsApp_Message", {
             name: userName,
             brand: car.brand,
@@ -68,7 +75,8 @@ const RentCar = ({isRentOpen, closeModal, car, account}: RentCarProps) => {
             year: car.year,
             phone: phoneNumber,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            days: diffDays
         });
         const whatsappUrl = `https://wa.me/${ownerPhoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, "_blank");

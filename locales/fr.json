@@ -84,7 +84,7 @@
     "Phone_Required": "Le numéro de téléphone est requis",
     "Dates_Required": "Veuillez sélectionner les dates de début et de fin",
     "Invalid_Phone": "Veuillez entrer un numéro de téléphone valide",
-    "WhatsApp_Message": "Bonjour, je suis {name} et je suis intéressé par la location de la {brand} {model} ({year}).\nTéléphone: {phone}\nPériode de location: du {startDate} au {endDate}"
+    "WhatsApp_Message": "Bonjour, je suis {name} et je suis intéressé par la location de la {brand} {model} ({year}).\nTéléphone: {phone}\nPériode de location: du {startDate} au {endDate} ({days} jours)"
   },
   "ShowMore": {
     "Show_More" : "Voir plus"
