@@ -27,6 +27,7 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
     resolver: zodResolver(accountSchema),
     defaultValues: {
       logo: account.logo,
+      logo2: account.logo2,
       description: account.description,
       facebook: account.facebook,
       instagram: account.instagram,
@@ -87,6 +88,30 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
               </FormItem>
             )}
           />
+
+            <FormField
+                control={form.control}
+                name="logo2"
+                render={({ field }) => (
+                    <FormItem className="flex flex-col gap-1">
+                        <FormLabel className="text-base font-normal text-dark-500">
+                            logo Footer
+                        </FormLabel>
+                        <FormControl>
+                            <FileUpload
+                                type="image"
+                                accept="image/*"
+                                placeholder="Upload car image"
+                                folder="account"
+                                variant="light"
+                                onFileChange={field.onChange}
+                                value={field.value}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
           <FormField
             control={form.control}

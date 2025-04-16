@@ -136,3 +136,21 @@ export const fetchFeaturedCar = async (): Promise<CarParams | null> => {
         throw new Error("Failed to fetch featured car.");
     }
 };
+
+export const updateCarStatus = async (carId: string, status: "available" | "rented" | "under_maintenance" | "processing") => {
+    try {
+        await db.update(cars)
+            .set({ availabilityStatus: status })
+            .where(eq(cars.id, carId));
+
+        return {
+            success: true,
+        };
+    } catch (error) {
+        console.error("Database Error:", error);
+        return {
+            success: false,
+            message: "Failed to update car status.",
+        };
+    }
+};

@@ -18,22 +18,48 @@ const CarCard = ({car, account}: CarCardProps) => {
 
     // Status badge styling and content based on availability
     const getStatusBadge = () => {
-        const isAvailable = car?.availabilityStatus === "available";
+        const getStatusStyle = () => {
+            switch (car?.availabilityStatus) {
+                case "available":
+                    return {
+                        bg: "bg-green-50",
+                        text: "text-green-600",
+                        bullet: "bg-green-600"
+                    };
+                case "rented":
+                    return {
+                        bg: "bg-red-50",
+                        text: "text-red-600",
+                        bullet: "bg-red-600"
+                    };
+                case "processing":
+                    return {
+                        bg: "bg-yellow-50",
+                        text: "text-yellow-600",
+                        bullet: "bg-yellow-600"
+                    };
+                case "under_maintenance":
+                    return {
+                        bg: "bg-blue-50",
+                        text: "text-blue-600",
+                        bullet: "bg-blue-600"
+                    };
+                default:
+                    return {
+                        bg: "bg-gray-50",
+                        text: "text-gray-600",
+                        bullet: "bg-gray-600"
+                    };
+            }
+        };
+
+        const statusStyle = getStatusStyle();
+
         return (
-            <div className={`absolute top-2 right-2 flex items-center px-3 py-1 rounded-full ${
-                isAvailable
-                    ? "bg-green-100 text-green-800"
-                    : "bg-red-100 text-red-800"
-            }`}>
-                <Image
-                    src={isAvailable ? "/checked.svg" : "/x-circle.svg"}
-                    width={16}
-                    height={16}
-                    alt="status icon"
-                    className="mr-1"
-                />
-                <span className="text-xs font-medium">
-                    {isAvailable ? t("available"): t("rented")}
+            <div className={`absolute top-2 right-2 flex items-center px-4 py-1.5 rounded-full ${statusStyle.bg}`}>
+                <div className={`w-3 h-3 rounded-full mr-2 ${statusStyle.bullet}`} />
+                <span className={`text-sm font-medium ${statusStyle.text}`}>
+                    {t(car?.availabilityStatus)}
                 </span>
             </div>
         );

@@ -36,6 +36,20 @@
       "when": 1743908550536,
       "tag": "0009_mean_stepford_cuckoos",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1744320545777,
+      "tag": "0010_complete_songbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1744838820489,
+      "tag": "0011_brave_mesmero",
+      "breakpoints": true
     }
   ]
 }

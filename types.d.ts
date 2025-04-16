@@ -54,7 +54,7 @@ interface Car {
   pricePerDay: number;
   seatingCapacity: number;
   color: string;
-  availabilityStatus: "available" | "rented" | "under_maintenance";
+  availabilityStatus: "available" | "rented" | "under_maintenance" | "processing";
   imageUrl: string;
   videoUrl: string;
   description: string;
@@ -73,7 +73,7 @@ export interface CarParams {
   pricePerDay: number;
   seatingCapacity: number;
   color: string;
-  availabilityStatus?: "available" | "rented" | "under_maintenance";
+  availabilityStatus?: "available" | "rented" | "under_maintenance" | "processing";
   imageUrl: string | null;
   videoUrl?: string | null;
   description: string | null;
@@ -83,6 +83,7 @@ export interface CarParams {
 
 interface AccountParams {
   logo?: string;
+  logo2?: string;
   description?: string;
   whatsapp?: string;
   facebook?: string;

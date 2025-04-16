@@ -82,6 +82,7 @@ export const AVAILABILITY_STATUS_ENUM = pgEnum("availability_status", [
   "available",
   "rented",
   "under_maintenance",
+  "processing"
 ]);
 
 export const cars = pgTable("cars", {
@@ -108,6 +109,7 @@ export const cars = pgTable("cars", {
 export const account = pgTable("accounts", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
   logo: varchar("logo", { length: 255 }).notNull(),
+  logo2: varchar("logo2", { length: 255 }).notNull(),
   description: varchar("description", { length: 255 }).notNull(),
   whatsapp: varchar("whatsapp", { length: 255 }).notNull(),
   facebook: varchar("facebook", { length: 255 }).notNull(),

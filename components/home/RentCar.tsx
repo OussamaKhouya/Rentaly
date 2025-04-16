@@ -7,6 +7,8 @@ import CustomButton from "@/components/home/CustomButton";
 import {useTranslations} from "use-intl";
 import CarImage from "../CarImage";
 import {Car, AccountParams} from "@/types";
+import { updateCarStatus } from "@/lib/admin/actions/car";
+import { toast } from "sonner";
 
 interface RentCarProps {
     isRentOpen: boolean;
@@ -57,9 +59,18 @@ const RentCar = ({isRentOpen, closeModal, car, account}: RentCarProps) => {
         return isValid;
     };
 
-    const handleWhatsAppRedirect = () => {
+    const handleWhatsAppRedirect = async () => {
         if (!validateForm()) {
             return;
+        }
+
+        // Only update status if car is available
+        if (car.availabilityStatus === "available") {
+            const result = await updateCarStatus(car.id, "processing");
+            if (!result.success) {
+                toast.error("Failed to update car status");
+                return;
+            }
         }
 
         // Calculate number of days
@@ -80,6 +91,7 @@ const RentCar = ({isRentOpen, closeModal, car, account}: RentCarProps) => {
         });
         const whatsappUrl = `https://wa.me/${ownerPhoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, "_blank");
+        closeModal();
     };
     const t = useTranslations("RentCar");
 

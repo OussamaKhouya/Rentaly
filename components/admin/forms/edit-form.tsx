@@ -267,24 +267,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="color"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Color
-              </FormLabel>
-              <FormControl>
-                <ColorPicker
-                  onPickerChange={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+       
 
         <FormField
           control={form.control}
@@ -302,6 +285,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
                   <SelectContent>
                     <SelectItem value="available">Available</SelectItem>
                     <SelectItem value="rented">Rented</SelectItem>
+                    <SelectItem value="processing">Processing</SelectItem>
                     <SelectItem value="under_maintenance">
                       Under Maintenance
                     </SelectItem>

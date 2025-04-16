@@ -1,0 +1,1 @@
+ALTER TABLE "accounts" ADD COLUMN "logo2" varchar(255) NOT NULL;

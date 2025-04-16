@@ -18,13 +18,13 @@ const Navbar = ({ account }: NavbarProps) => {
   return (
     <header className="w-full sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-md">
       <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4">
-        <Link href="/" className="flex justify-center items-center">
+        <Link href="/" className="flex justify-center items-center dark:invert">
           <IKImage
             path={account?.logo || ""}
             urlEndpoint={config.env.imagekit.urlEndpoint}
             alt="logo"
-            height={100}
-            width={118}
+            height={80}
+            width={200}
           />
         </Link>
 

@@ -43,7 +43,7 @@ export const carSchema = z.object({
   seatingCapacity: z.coerce.number().int().positive().lte(9), // Limiting to common passenger vehicle capacities
   color: z.string().trim().min(3).max(20),
   availabilityStatus: z
-    .enum(["available", "rented", "under_maintenance"])
+    .enum(["available", "rented", "under_maintenance", "processing"])
     .optional(),
   imageUrl: z.string().optional(),
   videoUrl: z.string().optional(),
@@ -55,6 +55,7 @@ export const carSchema = z.object({
 export const accountSchema = z.object({
   id: z.string().uuid().optional(),
   logo: z.string().optional(),
+  logo2: z.string().optional(),
   description: z.string().trim().min(10).max(1000),
   whatsapp: z.string().optional(),
   facebook: z.string().optional(),

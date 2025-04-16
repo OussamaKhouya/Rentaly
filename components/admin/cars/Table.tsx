@@ -4,9 +4,58 @@ import React from "react";
 import CarImage from "@/components/CarImage";
 import {Car, CarParams} from "@/types";
 import {fetchAllCars} from "@/lib/admin/actions/car";
+import {useTranslations} from "use-intl";
 
 const CarsTable = async () => {
     const latestCars = await fetchAllCars();
+
+    const getStatusBadge = (status: string) => {
+        const getStatusStyle = () => {
+            switch (status) {
+                case "available":
+                    return {
+                        bg: "bg-green-50",
+                        text: "text-green-600",
+                        bullet: "bg-green-600"
+                    };
+                case "rented":
+                    return {
+                        bg: "bg-red-50",
+                        text: "text-red-600",
+                        bullet: "bg-red-600"
+                    };
+                case "processing":
+                    return {
+                        bg: "bg-yellow-50",
+                        text: "text-yellow-600",
+                        bullet: "bg-yellow-600"
+                    };
+                case "under_maintenance":
+                    return {
+                        bg: "bg-blue-50",
+                        text: "text-blue-600",
+                        bullet: "bg-blue-600"
+                    };
+                default:
+                    return {
+                        bg: "bg-gray-50",
+                        text: "text-gray-600",
+                        bullet: "bg-gray-600"
+                    };
+            }
+        };
+
+        const statusStyle = getStatusStyle();
+
+        return (
+            <div className={`flex items-center px-4 py-1.5 rounded-full ${statusStyle.bg}`}>
+                <div className={`w-3 h-3 rounded-full mr-2 ${statusStyle.bullet}`} />
+                <span className={`text-sm font-medium ${statusStyle.text}`}>
+                    {status}
+                </span>
+            </div>
+        );
+    };
 
     return (
         <div className="mt-6 flow-root">
@@ -72,6 +121,9 @@ const CarsTable = async () => {
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
                                         Transmission
                                     </TableHead>
+                                    <TableHead scope="col" className="px-3 py-5 font-medium">
+                                        Availability
+                                    </TableHead>
                                     <TableHead scope="col" className="relative py-3 pl-6 pr-3">
                                         <span className="sr-only">Edit</span>
                                     </TableHead>
@@ -108,6 +160,9 @@ const CarsTable = async () => {
                                             </TableCell>
                                             <TableCell className="whitespace-nowrap px-3 py-3">
                                                 {t.transmission}
+                                            </TableCell>
+                                            <TableCell className="whitespace-nowrap px-3 py-3">
+                                                {getStatusBadge(t.availabilityStatus)}
                                             </TableCell>
 
                                             <TableCell className="whitespace-nowrap py-3 pl-6 pr-3">

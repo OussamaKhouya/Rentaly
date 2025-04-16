@@ -17,14 +17,16 @@ const Footer = ({ account }: FooterProps) => {
     <footer className="flex flex-col text-black-100 mt-5 border-t border-gray-100">
       <div className="flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10">
         <div className="flex flex-col justify-start items-start gap-6">
-          
-        <IKImage
-            path={account?.logo || ""}
+            <div className=" dark:invert">
+            <IKImage
+            path={account?.logo2 || ""}
             urlEndpoint={config.env.imagekit.urlEndpoint}
-            alt="logo"
+            alt="logo footer"
             width={200}
-            height={200}
+            height={110}
           />
+            </div>
+        
           <p className="text-base text-gray-700 dark:text-white">
             {account?.description || t("description")}
           </p>
