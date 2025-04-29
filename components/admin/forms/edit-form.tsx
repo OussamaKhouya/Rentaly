@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import {
   Form,
@@ -33,6 +34,7 @@ import { CarParams } from "@/types";
 
 const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
   const router = useRouter();
+  const t = useTranslations("Admin");
   const form = useForm<z.infer<typeof carSchema>>({
     resolver: zodResolver(carSchema),
     defaultValues: {
@@ -56,10 +58,12 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
   useEffect(() => {
     const errors = form.formState.errors;
     if (Object.keys(errors).length > 0) {
-      toast.error("Form validation failed. Please check your inputs.");
+      toast.error(t("Error"), {
+        description: t("Required_Field"),
+      });
       console.error(errors);
     }
-  }, [form.formState.errors]);
+  }, [form.formState.errors, t]);
 
   const onSubmit = async (values: z.infer<typeof carSchema>) => {
     try {
@@ -70,18 +74,18 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
       }, id);
       
       if (result.success) {
-        toast.success("Success", {
-          description: "Car updated successfully",
+        toast.success(t("Success"), {
+          description: t("Car_Updated"),
         });
         router.push("/admin/cars");
       } else {
-        toast.error("Error", {
+        toast.error(t("Error"), {
           description: result.message,
         });
       }
     } catch (error) {
-      toast.error("Error", {
-        description: "Failed to update car",
+      toast.error(t("Error"), {
+        description: t("Something_Went_Wrong"),
       });
     }
   };
@@ -95,12 +99,12 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Brand
+                {t("Brand")}
               </FormLabel>
               <FormControl>
                 <Input
                   required
-                  placeholder="Car brand"
+                  placeholder={t("Brand")}
                   {...field}
                   className="car-form_input"
                 />
@@ -116,12 +120,12 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Model
+                {t("Model")}
               </FormLabel>
               <FormControl>
                 <Input
                   required
-                  placeholder="Car model"
+                  placeholder={t("Model")}
                   {...field}
                   className="car-form_input"
                 />
@@ -137,7 +141,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Year
+                {t("Year")}
               </FormLabel>
               <FormControl>
                 <Input
@@ -159,7 +163,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Order
+                {t("Order")}
               </FormLabel>
               <FormControl>
                 <Input
@@ -180,18 +184,18 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Fuel Type
+                {t("Fuel_Type")}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
-                    <SelectValue placeholder="Select Fuel Type" />
+                    <SelectValue placeholder={t("Fuel_Type")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="petrol">Petrol</SelectItem>
-                    <SelectItem value="diesel">Diesel</SelectItem>
-                    <SelectItem value="electric">Electric</SelectItem>
-                    <SelectItem value="hybrid">Hybrid</SelectItem>
+                    <SelectItem value="petrol">{t("petrol")}</SelectItem>
+                    <SelectItem value="diesel">{t("diesel")}</SelectItem>
+                    <SelectItem value="electric">{t("electric")}</SelectItem>
+                    <SelectItem value="hybrid">{t("hybrid")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -206,16 +210,16 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Transmission
+                {t("Transmission")}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
-                    <SelectValue placeholder="Select Transmission" />
+                    <SelectValue placeholder={t("Transmission")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="manual">Manual</SelectItem>
-                    <SelectItem value="automatic">Automatic</SelectItem>
+                    <SelectItem value="manual">{t("manual")}</SelectItem>
+                    <SelectItem value="automatic">{t("automatic")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -230,7 +234,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Price Per Day
+                {t("Price")}
               </FormLabel>
               <FormControl>
                 <Input
@@ -251,7 +255,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Seating Capacity
+                {t("Seating_Capacity")}
               </FormLabel>
               <FormControl>
                 <Input
@@ -267,27 +271,25 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           )}
         />
 
-       
-
         <FormField
           control={form.control}
           name="availabilityStatus"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Availability Status
+                {t("Status")}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="car-form_input">
-                    <SelectValue placeholder="Select Availability" />
+                    <SelectValue placeholder={t("Status")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="available">Available</SelectItem>
-                    <SelectItem value="rented">Rented</SelectItem>
-                    <SelectItem value="processing">Processing</SelectItem>
+                    <SelectItem value="available">{t("available")}</SelectItem>
+                    <SelectItem value="rented">{t("rented")}</SelectItem>
+                    <SelectItem value="processing">{t("processing")}</SelectItem>
                     <SelectItem value="under_maintenance">
-                      Under Maintenance
+                      {t("under_maintenance")}
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -303,13 +305,13 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Car Image
+                {t("Car_Image")}
               </FormLabel>
               <FormControl>
                 <FileUpload
                   type="image"
                   accept="image/*"
-                  placeholder="Upload car image"
+                  placeholder={t("Upload_Car_Image")}
                   folder="cars/covers"
                   variant="light"
                   onFileChange={field.onChange}
@@ -327,11 +329,11 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                Car Description
+                {t("Description")}
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Car description"
+                  placeholder={t("Car_Description")}
                   {...field}
                   rows={5}
                   className="car-form_input"
@@ -343,7 +345,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
         />
 
         <Button type="submit" className="book-form_btn text-white">
-          Update Car
+          {t("Update_Car")}
         </Button>
       </form>
     </Form>

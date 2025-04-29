@@ -20,9 +20,11 @@ import { useForm } from "react-hook-form";
 import { updateAccount } from "@/lib/admin/actions/car";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
-import {AccountParams} from "@/types";
+import { AccountParams } from "@/types";
+import { useTranslations } from "next-intl";
 
 const AccountForm = ({ account }: { account: AccountParams }) => {
+  const t = useTranslations("Admin.Account");
   const form = useForm<z.infer<typeof accountSchema>>({
     resolver: zodResolver(accountSchema),
     defaultValues: {
@@ -38,24 +40,27 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
       map: account.map,
     },
   });
+
   useEffect(() => {
     const errors = form.formState.errors;
     if (Object.keys(errors).length > 0) {
-      toast.error("Form validation failed. Please check your inputs.");
+      toast.error(t("Error.Title"), {
+        description: t("Error.Message"),
+      });
       console.error(errors);
     }
-  }, [form.formState.errors]);
+  }, [form.formState.errors, t]);
 
   const onSubmit = async (values: z.infer<typeof accountSchema>) => {
     const result = await updateAccount(values);
     if (result.success) {
-      toast.success("Success", {
-        description: "Account updated successfully",
+      toast.success(t("Success.Title"), {
+        description: t("Success.Message"),
       });
       redirect("/admin/account");
     } else {
-      toast.error("Error", {
-        description: result.message,
+      toast.error(t("Error.Title"), {
+        description: t("Error.Message"),
       });
       console.error(result);
     }
@@ -71,13 +76,13 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  logo
+                  {t("Logo")}
                 </FormLabel>
                 <FormControl>
                   <FileUpload
                     type="image"
                     accept="image/*"
-                    placeholder="Upload car image"
+                    placeholder={t("Logo")}
                     folder="account"
                     variant="light"
                     onFileChange={field.onChange}
@@ -95,13 +100,13 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
                 render={({ field }) => (
                     <FormItem className="flex flex-col gap-1">
                         <FormLabel className="text-base font-normal text-dark-500">
-                            logo Footer
+                  {t("FooterLogo")}
                         </FormLabel>
                         <FormControl>
                             <FileUpload
                                 type="image"
                                 accept="image/*"
-                                placeholder="Upload car image"
+                    placeholder={t("FooterLogo")}
                                 folder="account"
                                 variant="light"
                                 onFileChange={field.onChange}
@@ -119,11 +124,11 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  Car Description
+                  {t("Description")}
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Car description"
+                    placeholder={t("Description")}
                     {...field}
                     rows={2}
                     className="car-form_input"
@@ -140,12 +145,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  whatsapp
+                  {t("WhatsApp")}
                 </FormLabel>
                 <FormControl>
                   <Input
                     required
-                    placeholder="Account whatsapp"
+                    placeholder={t("WhatsApp")}
                     {...field}
                     className="car-form_input"
                   />
@@ -161,12 +166,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  facebook
+                  {t("Facebook")}
                 </FormLabel>
                 <FormControl>
                   <Input
                     required
-                    placeholder="Account facebook"
+                    placeholder={t("Facebook")}
                     {...field}
                     className="car-form_input"
                   />
@@ -182,12 +187,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  instagram
+                  {t("Instagram")}
                 </FormLabel>
                 <FormControl>
                   <Input
                     required
-                    placeholder="Account instagram"
+                    placeholder={t("Instagram")}
                     {...field}
                     className="car-form_input"
                   />
@@ -203,12 +208,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  email
+                  {t("Email")}
                 </FormLabel>
                 <FormControl>
                   <Input
                     required
-                    placeholder="Account email"
+                    placeholder={t("Email")}
                     {...field}
                     className="car-form_input"
                   />
@@ -224,12 +229,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  phone
+                  {t("Phone")}
                 </FormLabel>
                 <FormControl>
                   <Input
                     required
-                    placeholder="Account phone"
+                    placeholder={t("Phone")}
                     {...field}
                     className="car-form_input"
                   />
@@ -245,11 +250,11 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  address
+                  {t("Address")}
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder=" address"
+                    placeholder={t("Address")}
                     {...field}
                     rows={2}
                     className="car-form_input"
@@ -266,11 +271,11 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel className="text-base font-normal text-dark-500">
-                  Map
+                  {t("Map")}
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Car map"
+                    placeholder={t("Map")}
                     {...field}
                     rows={3}
                     className="car-form_input"
@@ -282,11 +287,12 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
           />
 
           <Button type="submit" className="book-form_btn text-white">
-            Update Car
+            {t("Update")}
           </Button>
         </form>
       </Form>
     </>
   );
 };
+
 export default AccountForm;

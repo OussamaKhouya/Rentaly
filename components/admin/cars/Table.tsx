@@ -1,13 +1,20 @@
+"use client";
+
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table";
 import {DeleteCar, UpdateCar} from "@/components/admin/cars/buttons";
 import React from "react";
 import CarImage from "@/components/CarImage";
 import {Car, CarParams} from "@/types";
 import {fetchAllCars} from "@/lib/admin/actions/car";
-import {useTranslations} from "use-intl";
+import {useTranslations} from "next-intl";
 
-const CarsTable = async () => {
-    const latestCars = await fetchAllCars();
+const CarsTable = () => {
+    const t = useTranslations("Admin");
+    const [cars, setCars] = React.useState<CarParams[]>([]);
+
+    React.useEffect(() => {
+        fetchAllCars().then(setCars);
+    }, []);
 
     const getStatusBadge = (status: string) => {
         const getStatusStyle = () => {
@@ -51,7 +58,7 @@ const CarsTable = async () => {
             <div className={`flex items-center px-4 py-1.5 rounded-full ${statusStyle.bg}`}>
                 <div className={`w-3 h-3 rounded-full mr-2 ${statusStyle.bullet}`} />
                 <span className={`text-sm font-medium ${statusStyle.text}`}>
-                    {status}
+                    {t(status)}
                 </span>
             </div>
         );
@@ -63,7 +70,7 @@ const CarsTable = async () => {
                 <div className="inline-block min-w-full align-middle">
                     <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
                         <div className="md:hidden">
-                            {latestCars?.map((c) => (
+                            {cars?.map((c) => (
                                 <div key={c.id} className="mb-6 w-full rounded-md bg-white p-4">
                                     <div className="flex items-center justify-center border-b pb-4">
                                         <div>
@@ -78,16 +85,16 @@ const CarsTable = async () => {
                                     </div>
                                     <div className="flex w-full items-center justify-between border-b py-5">
                                         <div className="flex w-1/2 flex-col">
-                                            <p className="text-xs">Price</p>
+                                            <p className="text-xs">{t("Price")}</p>
                                             <p className="font-medium">{c.pricePerDay}</p>
                                         </div>
                                         <div className="flex w-1/2 flex-col">
-                                            <p className="text-xs">Fuel Type</p>
-                                            <p className="font-medium">{c.fuelType}</p>
+                                            <p className="text-xs">{t("Fuel_Type")}</p>
+                                            <p className="font-medium">{t(c.fuelType || "")}</p>
                                         </div>
                                     </div>
                                     <div className="pt-4 text-sm border-b py-5">
-                                        <p>{c.transmission} </p>
+                                        <p>{t(c.transmission || "")} </p>
                                     </div>
                                     <div className="flex justify-end pe-4 pt-4 gap-3">
                                         {c.id && <UpdateCar id={c.id}/>}
@@ -104,71 +111,71 @@ const CarsTable = async () => {
                                         scope="col"
                                         className="px-4 py-5 font-medium sm:pl-6"
                                     >
-                                        Brand
+                                        {t("Brand")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Model
+                                        {t("Model")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Year
+                                        {t("Year")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Price Per Day
+                                        {t("Price")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Fuel Type
+                                        {t("Fuel_Type")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Transmission
+                                        {t("Transmission")}
                                     </TableHead>
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
-                                        Availability
+                                        {t("Status")}
                                     </TableHead>
                                     <TableHead scope="col" className="relative py-3 pl-6 pr-3">
-                                        <span className="sr-only">Edit</span>
+                                        <span className="sr-only">{t("Actions")}</span>
                                     </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody className="bg-white">
-                                {latestCars.map((t: CarParams) => {
+                                {cars.map((car: CarParams) => {
                                     return (
                                         <TableRow
-                                            key={t.id}
+                                            key={car.id}
                                             className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                                         >
                                             <TableCell className="whitespace-nowrap py-3">
                                                 <div className="flex items-center gap-2">
                                                     <CarImage variant="medium"
-                                                              coverImage={t.imageUrl}/>
-                                                    <p>{t.brand}</p>
+                                                              coverImage={car.imageUrl}/>
+                                                    <p>{car.brand}</p>
                                                 </div>
                                             </TableCell>
 
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {t.model}
+                                                {car.model}
                                             </TableCell>
 
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {t.year}
+                                                {car.year}
                                             </TableCell>
 
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {t.pricePerDay} DH
+                                                {car.pricePerDay} DH
                                             </TableCell>
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {t.fuelType}
+                                                {t(car.fuelType || "")}
                                             </TableCell>
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {t.transmission}
+                                                {t(car.transmission || "")}
                                             </TableCell>
                                             <TableCell className="whitespace-nowrap px-3 py-3">
-                                                {getStatusBadge(t.availabilityStatus)}
+                                                {getStatusBadge(car.availabilityStatus || "")}
                                             </TableCell>
 
                                             <TableCell className="whitespace-nowrap py-3 pl-6 pr-3">
                                                 <div className="flex justify-end gap-3">
-                                                    {t.id && <UpdateCar id={t.id}/>}
-                                                    {t.id && <DeleteCar id={t.id}/>}
+                                                    {car.id && <UpdateCar id={car.id}/>}
+                                                    {car.id && <DeleteCar id={car.id}/>}
                                                 </div>
                                             </TableCell>
                                         </TableRow>

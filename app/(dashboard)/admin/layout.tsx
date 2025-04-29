@@ -8,9 +8,12 @@ import Header from "@/components/admin/Header";
 import { db } from "@/database/drizzle";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
+  const locale = await getLocale();
 
   if (!session?.user?.id) redirect("/sign-in");
 
@@ -24,14 +27,20 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   if (!hasAccessToAdmin) redirect("/");
 
   return (
-    <main className="flex min-h-screen w-full flex-row">
-      <Sidebar session={session} />
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <NextIntlClientProvider>
+          <main className="flex min-h-screen w-full flex-row">
+            <Sidebar session={session} />
 
-      <div className="admin-container">
-        <Header session={session} />
-        {children}
-      </div>
-    </main>
+            <div className="admin-container">
+              <Header session={session} />
+              {children}
+            </div>
+          </main>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 };
 export default Layout;

@@ -25,8 +25,8 @@ const bebasNeue = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Rentaly Dashboard",
-  description: "Rentaly is a car rental management solution.",
+  title: "Dashboard",
+  description: "Dashboard for a car rental management.",
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {

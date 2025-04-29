@@ -4,16 +4,21 @@ import Breadcrumbs from "@/components/admin/breadcrumbs";
 import React from "react";
 import EditForm from "@/components/admin/forms/edit-form";
 import { fetchCarById } from "@/lib/admin/actions/car";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Edit Car",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Admin");
+  return {
+    title: t("Edit_Car"),
+  };
+}
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
   const car = await fetchCarById(id);
-    console.log(car);
+  const t = await getTranslations("Admin");
+
   if (!car) {
     notFound();
   }
@@ -22,9 +27,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Cars", href: "/admin/cars" },
+          { label: t("Cars"), href: "/admin/cars" },
           {
-            label: "Edit Car",
+            label: t("Edit_Car"),
             href: `/admin/cars/${id}/edit`,
             active: true,
           },

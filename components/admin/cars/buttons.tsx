@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useTranslations } from "next-intl";
 
 export function CreateInvoice() {
   return (
@@ -33,6 +34,7 @@ export function UpdateCar({ id }: { id: string }) {
 export function DeleteCar({ id }: { id: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const deleteCarWithId = deleteCar.bind(null, id);
+  const t = useTranslations("Admin");
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
@@ -44,7 +46,7 @@ export function DeleteCar({ id }: { id: string }) {
         onClick={openModal}
         className="rounded-md border p-2 hover:bg-gray-100"
       >
-        <span className="sr-only">Delete</span>
+        <span className="sr-only">{t("Delete_Car")}</span>
         <TrashIcon className="w-5" color="#EF3A4B" />
       </button>
 
@@ -78,11 +80,11 @@ export function DeleteCar({ id }: { id: string }) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Confirm Deletion
+                    {t("Confirm")}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Are you sure you want to delete this car? This action cannot be undone.
+                      {t("Delete_Confirmation")}
                     </p>
                   </div>
 
@@ -92,14 +94,14 @@ export function DeleteCar({ id }: { id: string }) {
                       className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Cancel
+                      {t("Cancel")}
                     </button>
                     <form action={deleteCarWithId}>
                       <button
                         type="submit"
                         className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       >
-                        Delete
+                        {t("Delete_Car")}
                       </button>
                     </form>
                   </div>
