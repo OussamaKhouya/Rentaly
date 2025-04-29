@@ -81,5 +81,5 @@ const seedAccount = async () => {
 };
 
 // seedBooks();
-seedCars();
+//seedCars();
 // seedAccount();

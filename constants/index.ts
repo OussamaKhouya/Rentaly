@@ -5,7 +5,7 @@ export const adminSideBarLinks = [
     text: "Dashboard",
   },
   {
-    img: "/icons/admin/book.svg",
+    img: "/icons/admin/car-logo.svg",
     route: "/admin/cars",
     text: "Cars",
   },

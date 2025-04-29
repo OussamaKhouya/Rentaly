@@ -93,13 +93,38 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
+      <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                {<strong>{t("Car_Image")}</strong>}
+              </FormLabel>
+              <FormControl>
+                <FileUpload
+                  type="image"
+                  accept="image/*"
+                  placeholder={t("Upload_Car_Image")}
+                  folder="cars/covers"
+                  variant="light"
+                  onFileChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="brand"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Brand")}
+                {<strong>{t("Brand")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -120,7 +145,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Model")}
+                {<strong>{t("Model")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -141,7 +166,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Year")}
+                {<strong>{t("Year")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -163,7 +188,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Order")}
+                {<strong>{t("Order")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -184,7 +209,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Fuel_Type")}
+                {<strong>{t("Fuel_Type")}</strong>}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -210,7 +235,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Transmission")}
+                {<strong>{t("Transmission")}</strong>}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -234,7 +259,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Price")}
+                {<strong>{t("Price")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -255,7 +280,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Seating_Capacity")}
+                {<strong>{t("Seating_Capacity")}</strong>}
               </FormLabel>
               <FormControl>
                 <Input
@@ -277,7 +302,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
-                {t("Status")}
+                {<strong>{t("Status")}</strong>}
               </FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -299,29 +324,7 @@ const EditForm = ({ car, id }: { car: CarParams; id: string }) => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                {t("Car_Image")}
-              </FormLabel>
-              <FormControl>
-                <FileUpload
-                  type="image"
-                  accept="image/*"
-                  placeholder={t("Upload_Car_Image")}
-                  folder="cars/covers"
-                  variant="light"
-                  onFileChange={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+       
 
         <FormField
           control={form.control}
