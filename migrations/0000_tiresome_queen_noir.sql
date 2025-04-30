@@ -1,5 +1,4 @@
-CREATE TYPE "public"."availability_status" AS ENUM('available', 'rented', 'under_maintenance');--> statement-breakpoint
-CREATE TYPE "public"."borrow_status" AS ENUM('BORROWED', 'RETURNED');--> statement-breakpoint
+CREATE TYPE "public"."availability_status" AS ENUM('available', 'rented', 'under_maintenance', 'processing');--> statement-breakpoint
 CREATE TYPE "public"."fuel_type" AS ENUM('petrol', 'diesel', 'electric', 'hybrid');--> statement-breakpoint
 CREATE TYPE "public"."role" AS ENUM('USER', 'ADMIN');--> statement-breakpoint
 CREATE TYPE "public"."status" AS ENUM('PENDING', 'APPROVED', 'REJECTED');--> statement-breakpoint
@@ -7,6 +6,7 @@ CREATE TYPE "public"."transmission" AS ENUM('manual', 'automatic');--> statement
 CREATE TABLE "accounts" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"logo" varchar(255) NOT NULL,
+	"logo2" varchar(255) NOT NULL,
 	"description" varchar(255) NOT NULL,
 	"whatsapp" varchar(255) NOT NULL,
 	"facebook" varchar(255) NOT NULL,
@@ -14,39 +14,10 @@ CREATE TABLE "accounts" (
 	"email" varchar(255) NOT NULL,
 	"phone" varchar(255) NOT NULL,
 	"address" varchar(255) NOT NULL,
-	"map" varchar(255) NOT NULL,
+	"map" text NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now(),
 	CONSTRAINT "accounts_id_unique" UNIQUE("id")
-);
---> statement-breakpoint
-CREATE TABLE "books" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"title" varchar(255) NOT NULL,
-	"author" varchar(255) NOT NULL,
-	"genre" text NOT NULL,
-	"rating" integer NOT NULL,
-	"cover_url" text NOT NULL,
-	"cover_color" varchar(7) NOT NULL,
-	"description" text NOT NULL,
-	"total_copies" integer DEFAULT 1 NOT NULL,
-	"available_copies" integer DEFAULT 0 NOT NULL,
-	"video_url" text NOT NULL,
-	"summary" varchar NOT NULL,
-	"created_at" timestamp with time zone DEFAULT now(),
-	CONSTRAINT "books_id_unique" UNIQUE("id")
-);
---> statement-breakpoint
-CREATE TABLE "borrow_records" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"user_id" uuid NOT NULL,
-	"book_id" uuid NOT NULL,
-	"borrow_date" timestamp with time zone DEFAULT now() NOT NULL,
-	"due_date" date NOT NULL,
-	"return_date" date,
-	"status" "borrow_status" DEFAULT 'BORROWED' NOT NULL,
-	"created_at" timestamp with time zone DEFAULT now(),
-	CONSTRAINT "borrow_records_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint
 CREATE TABLE "cars" (
@@ -54,16 +25,17 @@ CREATE TABLE "cars" (
 	"brand" varchar(255) NOT NULL,
 	"model" varchar(255) NOT NULL,
 	"year" integer NOT NULL,
-	"order" integer NOT NULL,
+	"order" integer DEFAULT 0 NOT NULL,
 	"fuel_type" "fuel_type" DEFAULT 'petrol' NOT NULL,
 	"transmission" "transmission" DEFAULT 'manual' NOT NULL,
 	"price_per_day" integer NOT NULL,
 	"seating_capacity" integer NOT NULL,
-	"color" varchar(50) NOT NULL,
+	"color" varchar(50),
 	"availability_status" "availability_status" DEFAULT 'available' NOT NULL,
 	"image_url" text,
 	"video_url" text,
 	"description" text,
+	"featured" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	CONSTRAINT "cars_id_unique" UNIQUE("id")
 );
@@ -72,17 +44,11 @@ CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"full_name" varchar(255) NOT NULL,
 	"email" text NOT NULL,
-	"university_id" integer NOT NULL,
 	"password" text NOT NULL,
-	"university_card" text NOT NULL,
 	"status" "status" DEFAULT 'PENDING',
 	"role" "role" DEFAULT 'USER',
 	"last_activity_date" date DEFAULT now(),
 	"created_at" timestamp with time zone DEFAULT now(),
 	CONSTRAINT "users_id_unique" UNIQUE("id"),
-	CONSTRAINT "users_email_unique" UNIQUE("email"),
-	CONSTRAINT "users_university_id_unique" UNIQUE("university_id")
+	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
---> statement-breakpoint
-ALTER TABLE "borrow_records" ADD CONSTRAINT "borrow_records_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "borrow_records" ADD CONSTRAINT "borrow_records_book_id_books_id_fk" FOREIGN KEY ("book_id") REFERENCES "public"."books"("id") ON DELETE no action ON UPDATE no action;

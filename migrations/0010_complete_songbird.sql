@@ -1,1 +1,0 @@
-ALTER TYPE "public"."availability_status" ADD VALUE 'processing';

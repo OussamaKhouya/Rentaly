@@ -1,1 +1,0 @@
-ALTER TABLE "cars" ADD COLUMN "featured" boolean DEFAULT false NOT NULL;

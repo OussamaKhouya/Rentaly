@@ -17,14 +17,14 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
   if (!session?.user?.id) redirect("/sign-in");
 
-  const hasAccessToAdmin = await db
+  /*const hasAccessToAdmin = await db
     .select({ role: users.role })
     .from(users)
     .where(eq(users.id, session.user.id))
     .limit(1)
     .then((res) => res[0]?.role === "USER" || res[0]?.role === "ADMIN");
 
-  if (!hasAccessToAdmin) redirect("/");
+  if (!hasAccessToAdmin) redirect("/");*/
 
   return (
     <html lang={locale} suppressHydrationWarning>

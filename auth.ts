@@ -12,14 +12,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.username || !credentials?.password) {
           return null;
         }
 
         const user = await db
           .select()
           .from(users)
-          .where(eq(users.email, credentials.email.toString()))
+          .where(eq(users.username, credentials.username.toString()))
           .limit(1);
 
         if (user.length === 0) return null;
@@ -33,7 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return {
           id: user[0].id.toString(),
-          email: user[0].email,
+          username: user[0].username,
           name: user[0].fullName,
         } as User;
       },

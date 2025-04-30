@@ -1,8 +1,8 @@
 "use server";
 
-import {account, cars} from "@/database/schema";
+import {account, cars, users} from "@/database/schema";
 import {db} from "@/database/drizzle";
-import {desc, eq,asc} from "drizzle-orm";
+import {asc, desc, eq} from "drizzle-orm";
 import {revalidatePath} from "next/cache";
 import {signOut} from "@/auth";
 import {AccountParams, Car, CarParams} from "@/types";
@@ -140,7 +140,7 @@ export const fetchFeaturedCar = async (): Promise<CarParams | null> => {
 export const updateCarStatus = async (carId: string, status: "available" | "rented" | "under_maintenance" | "processing") => {
     try {
         await db.update(cars)
-            .set({ availabilityStatus: status })
+            .set({availabilityStatus: status})
             .where(eq(cars.id, carId));
 
         return {
@@ -152,5 +152,23 @@ export const updateCarStatus = async (carId: string, status: "available" | "rent
             success: false,
             message: "Failed to update car status.",
         };
+    }
+};
+
+export const isAdmin = async (userId: string | undefined): Promise<boolean | null> => {
+    try {
+        if (!userId) return false;
+
+        const isAdmin = await db
+            .select({role: users.role})
+            .from(users)
+            .where(eq(users.id, userId))
+            .limit(1)
+            .then((res) => res[0]?.role === "ADMIN");
+
+        return isAdmin || null;
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch featured car.");
     }
 };

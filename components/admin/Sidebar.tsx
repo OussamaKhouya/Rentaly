@@ -1,22 +1,32 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Image from "next/image";
 import {adminSideBarLinks} from "@/constants";
 import Link from "next/link";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
 import {Session} from "next-auth";
-import {handleSignOut} from "@/lib/admin/actions/car";
+import {handleSignOut, isAdmin} from "@/lib/admin/actions/car";
 import {Button} from "@/components/ui/button";
 import {LogOut} from "lucide-react";
 import {useTranslations} from "next-intl";
 import LocaleSwitcher from "@/components/admin/LocaleSwitcher";
+import {auth} from "@/auth";
 
 const Sidebar = ({session}: { session: Session }) => {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [isUserAdmin, setIsUserAdmin] = useState(false);
     const t = useTranslations("Admin");
+
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            const adminStatus = await isAdmin(session?.user?.id);
+            setIsUserAdmin(adminStatus === true);
+        };
+         checkAdminStatus();
+    }, [session?.user?.id]);
 
     return (
         <>
@@ -33,7 +43,7 @@ const Sidebar = ({session}: { session: Session }) => {
                 {isOpen ? "×" : "≡"}
             </button>
 
-      {/* Sidebar: Hidden on mobile if not toggled open, always visible on md and above */}
+            {/* Sidebar: Hidden on mobile if not toggled open, always visible on md and above */}
             <div className={`${isOpen ? "flex" : "hidden"} md:flex admin-sidebar flex-col justify-between`}>
                 <div className="flex-1">
                     <div className="logo">
@@ -41,7 +51,11 @@ const Sidebar = ({session}: { session: Session }) => {
                     </div>
 
                     <div className="mt-10 flex flex-col gap-5">
-                        {adminSideBarLinks.map((link) => {
+                        {adminSideBarLinks.filter(link => {
+                            // Show all links for admin users
+                            // Show only links with showUser=true for regular users
+                            return isUserAdmin ? true : link.showUser;
+                        }).map((link) => {
                             const isSelected =
                                 (link.route !== "/admin" &&
                                     pathname.includes(link.route) &&

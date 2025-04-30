@@ -4,9 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
-  const session = await auth();
 
-  if (session) redirect("/admin");
 
   return (
     <main className="auth-container">
@@ -19,7 +17,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
               width={37}
               height={37}
             />
-            <h1 className="text-2xl font-semibold text-white">Rentaly</h1>
+            <h1 className="text-2xl font-semibold text-white">Authentication</h1>
           </div>
 
           <div>{children}</div>

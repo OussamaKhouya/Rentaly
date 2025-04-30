@@ -34,7 +34,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <main>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-start mb-6">
         <Breadcrumbs
           breadcrumbs={[
             { label: t("Cars"), href: "/admin/cars" },

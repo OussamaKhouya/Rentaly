@@ -57,7 +57,7 @@ const AccountForm = ({ account }: { account: AccountParams }) => {
       toast.success(t("Success.Title"), {
         description: t("Success.Message"),
       });
-      redirect("/admin/account");
+      redirect("/admin");
     } else {
       toast.error(t("Error.Title"), {
         description: t("Error.Message"),

@@ -1,1 +1,0 @@
-ALTER TABLE "accounts" ALTER COLUMN "map" SET DATA TYPE text;

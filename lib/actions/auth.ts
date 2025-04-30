@@ -5,11 +5,12 @@ import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
+import {AuthCredentials} from "@/types";
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password">,
+  params: Pick<AuthCredentials, "username" | "password">,
 ) => {
-  const { email, password } = params;
+  const { username, password } = params;
 
   // const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
   // const { success } = await ratelimit.limit(ip);
@@ -18,7 +19,7 @@ export const signInWithCredentials = async (
 
   try {
     const result = await signIn("credentials", {
-      email,
+      username,
       password,
       redirect: false,
     });
@@ -35,12 +36,12 @@ export const signInWithCredentials = async (
 };
 
 export const signUp = async (params: AuthCredentials) => {
-  const { fullName, email, universityId, password, universityCard } = params;
+  const { fullName, username, password } = params;
 
   const existingUser = await db
     .select()
     .from(users)
-    .where(eq(users.email, email))
+    .where(eq(users.username, username))
     .limit(1);
 
   if (existingUser.length > 0) {
@@ -52,21 +53,19 @@ export const signUp = async (params: AuthCredentials) => {
   try {
     await db.insert(users).values({
       fullName,
-      email,
-      universityId,
+      username,
       password: hashedPassword,
-      universityCard,
     });
 
     // await workflowClient.trigger({
     //   url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
     //   body: {
-    //     email,
+    //     username,
     //     fullName,
     //   },
     // });
     //
-    // await signInWithCredentials({ email, password });
+    // await signInWithCredentials({ username, password });
 
     return { success: true };
   } catch (error) {

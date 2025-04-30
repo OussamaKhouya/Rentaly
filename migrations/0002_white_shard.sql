@@ -1,1 +1,0 @@
-ALTER TABLE "cars" ALTER COLUMN "color" DROP NOT NULL;
