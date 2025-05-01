@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import { ThemeProvider } from "@/components/home/ThemeProvider";
 import { fetchAccount } from "@/lib/admin/actions/car";
+import Head from "next/head";
 
 export default async function RootLayout({
   children,
@@ -17,6 +17,16 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+    <Head>
+      <title>
+        Cathédrale Cars
+      </title>
+      <meta
+          name="description"
+          content="L'élégance au service de votre voyage."
+          key="desc"
+      />
+    </Head>
       <body>
         <ThemeProvider>
           <NextIntlClientProvider>

@@ -10,7 +10,7 @@ interface ContactProps {
 
 const Contact = ({ account }: ContactProps) => {
   const t = useTranslations('Contact');
-  const mapSrc = account?.map || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.401186963287!2d-6.792667484800293!3d34.04085822341532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76cf56d96f5c5b%3A0xbbeffcad32b1c0c4!2sYLH%20CAR!5e0!3m2!1sen!2sma!4v1702309460367!5m2!1sen!2sma";
+  const mapSrc = account?.map || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1391.742709750886!2d-6.887549591246448!3d33.93751003406873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda71313ae9cff13%3A0x299195243258bf6a!2sCath%C3%A9drale%20Cars!5e0!3m2!1sfr!2sma!4v1744506311357!5m2!1sfr!2sma";
 
   return (
     <section id="contact_us" className="mt-16 flex flex-col md:flex-row items-center md:items-start gap-8 py-16">
@@ -41,7 +41,7 @@ const Contact = ({ account }: ContactProps) => {
               />
             </div>
             <div>
-              <p className="text-lg font-medium dark:text-white">{account?.phone || "06 61 39 71 47 / 07 65 57 59 58"}</p>
+              <p className="text-lg font-medium dark:text-white">{account?.phone || "06 61 39 71 47"}</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t("phone")}</p>
             </div>
           </div>
@@ -65,7 +65,7 @@ const Contact = ({ account }: ContactProps) => {
               />
             </div>
             <div>
-              <p className="text-lg font-medium dark:text-white">{account?.email || "reservation@ylhcar.ma"}</p>
+              <p className="text-lg font-medium dark:text-white">{account?.email || "cathedralecars@gmail.com"}</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">{t("email")}</p>
             </div>
           </div>

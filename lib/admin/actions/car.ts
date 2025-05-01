@@ -50,7 +50,8 @@ export const fetchCarById = async (id: string): Promise<CarParams> => {
             .where(eq(cars.id, id))
             .limit(1);
 
-        return newCar;
+        // Type assertion to handle the color property
+        return newCar as CarParams;
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch car.");
@@ -119,7 +120,7 @@ export const updateAccount = async (params: AccountParams) => {
 };
 
 export async function handleSignOut() {
-    await signOut();
+    await signOut({ redirect: true, redirectTo: "/sign-in" });
 }
 
 export const fetchFeaturedCar = async (): Promise<CarParams | null> => {
@@ -130,7 +131,8 @@ export const fetchFeaturedCar = async (): Promise<CarParams | null> => {
             .where(eq(cars.featured, true))
             .limit(1);
 
-        return featuredCar || null;
+        // Type assertion to handle the color property
+        return featuredCar ? (featuredCar as CarParams) : null;
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch featured car.");
@@ -170,5 +172,31 @@ export const isAdmin = async (userId: string | undefined): Promise<boolean | nul
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch featured car.");
+    }
+};
+
+export const updateFeaturedCar = async (carId: string) => {
+    try {
+        // First set all cars' featured status to false
+        await db.update(cars)
+            .set({ featured: false });
+        
+        // Then set the selected car to featured
+        await db.update(cars)
+            .set({ featured: true })
+            .where(eq(cars.id, carId));
+        
+        revalidatePath('/admin/cars');
+        revalidatePath('/');  // Also revalidate homepage which might show featured car
+
+        return {
+            success: true,
+        };
+    } catch (error) {
+        console.error("Database Error:", error);
+        return {
+            success: false,
+            message: "Failed to update featured car status.",
+        };
     }
 };

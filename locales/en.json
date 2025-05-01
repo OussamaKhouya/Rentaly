@@ -98,14 +98,16 @@
   },
   "Admin": {
     "Dashboard": "Dashboard",
+    "Informations": "Informations",
     "Cars": "Cars",
     "Accounts": "Accounts",
     "Settings": "Settings",
     "Sign_Out": "Sign Out",
     "Add_Car": "Add Car",
-    "Edit_Car": "Edit Car",
+    "Edit_Car": "Edit",
     "Delete_Car": "Delete Car",
     "Car_Details": "Car Details",
+    "Car_Description": "Car Description",
     "Brand": "Brand",
     "Model": "Model",
     "Year": "Year",
@@ -123,6 +125,7 @@
     "Car_Added": "Car added successfully",
     "Car_Updated": "Car updated successfully",
     "Car_Deleted": "Car deleted successfully",
+    "Car_Featured_Success": "Car has been set as featured successfully",
     "Something_Went_Wrong": "Something went wrong",
     "Required_Field": "This field is required",
     "Invalid_Price": "Please enter a valid price",
@@ -144,6 +147,12 @@
     "Update_Car": "Update Car",
     "Upload_Car_Image": "Update Car Image",
     "Upload_Car": "Update Car",
+    "Featured": "Featured",
+    "Set_Featured": "Set as featured",
+    "Already_Featured": "Already featured",
+    "Hide_Menu": "Hide Menu",
+    "Show_Menu": "Show Menu",
+    "Visit_Site": "Visit Site",
     "Account": {
       "account": "Account",
       "info": "Informations",
@@ -167,5 +176,19 @@
         "Message": "An error occurred while updating the account"
       }
     }
+  },
+  "Auth": {
+    "Welcome_Back": "Welcome back to Dashboard",
+    "Create_Account": "Create your account",
+    "Access_Control": "Access the control panel, and customize your client's experience.",
+    "Complete_Fields": "Please complete all fields and use a powerful password to protect your account.",
+    "Sign_In": "Sign In",
+    "Sign_Up": "Sign Up",
+    "Already_Have_Account": "Already have an account?",
+    "Success_Sign_In": "You have successfully signed in.",
+    "Success_Sign_Up": "You have successfully signed up.",
+    "Error_Sign_In": "Error signing in",
+    "Error_Sign_Up": "Error signing up",
+    "An_Error_Occurred": "An error occurred."
   }
 }

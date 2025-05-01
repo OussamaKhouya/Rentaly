@@ -26,6 +26,7 @@ import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import FileUpload from "@/components/FileUpload";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "use-intl";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -41,6 +42,7 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const router = useRouter();
+  const  t  = useTranslations("Auth");
 
   const isSignIn = type === "SIGN_IN";
 
@@ -55,14 +57,14 @@ const AuthForm = <T extends FieldValues>({
     if (result.success) {
       toast.success("Success", {
         description: isSignIn
-          ? "You have successfully signed in."
-          : "You have successfully signed up.",
+          ? t("Success_Sign_In")
+          : t("Success_Sign_Up"),
       });
 
       router.push("/admin");
     } else {
-      toast.error(`Error ${isSignIn ? "signing in" : "signing up"}`, {
-        description: result.error ?? "An error occurred.",
+      toast.error(isSignIn ? t("Error_Sign_In") : t("Error_Sign_Up"), {
+        description: result.error ?? t("An_Error_Occurred"),
       });
     }
   };
@@ -70,12 +72,12 @@ const AuthForm = <T extends FieldValues>({
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-white">
-        {isSignIn ? "Welcome back to Dashboard" : "Create your  account"}
+        {isSignIn ? t("Welcome_Back") : t("Create_Account")}
       </h1>
       <p className="text-light-100">
         {isSignIn
-          ? "Access the control panel, and costumize your client's experience."
-          : "Please complete all fields and use a powerfull password to protect your account."}
+          ? t("Access_Control")
+          : t("Complete_Fields")}
       </p>
       <Form {...form}>
         <form
@@ -120,15 +122,15 @@ const AuthForm = <T extends FieldValues>({
           ))}
 
           <Button type="submit" className="form-btn">
-            {isSignIn ? "Sign In" : "Sign Up"}
+            {isSignIn ? t("Sign_In") : t("Sign_Up")}
           </Button>
         </form>
       </Form>
       {!isSignIn ? (
         <p className="text-center text-base font-medium">
-          Already have an account?
+          {t("Already_Have_Account")}
           <Link href="/sign-in" className="font-bold text-primary">
-            "Sign in"
+            {t("Sign_In")}
           </Link>
         </p>
       ) : null}

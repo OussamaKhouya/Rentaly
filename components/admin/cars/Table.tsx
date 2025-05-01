@@ -5,15 +5,25 @@ import {DeleteCar, UpdateCar} from "@/components/admin/cars/buttons";
 import React from "react";
 import CarImage from "@/components/CarImage";
 import {Car, CarParams} from "@/types";
-import {fetchAllCars} from "@/lib/admin/actions/car";
+import {fetchAllCars, fetchFeaturedCar} from "@/lib/admin/actions/car";
 import {useTranslations} from "next-intl";
+import FeaturedCarButton from "@/components/admin/featured/FeaturedCarButton";
+import { StarIcon } from "lucide-react";
 
 const CarsTable = () => {
     const t = useTranslations("Admin");
     const [cars, setCars] = React.useState<CarParams[]>([]);
+    const [featuredCarId, setFeaturedCarId] = React.useState<string>("");
 
     React.useEffect(() => {
-        fetchAllCars().then(setCars);
+        const fetchData = async () => {
+            const allCars = await fetchAllCars();
+            const featuredCar = await fetchFeaturedCar();
+            setCars(allCars);
+            setFeaturedCarId(featuredCar?.id || "");
+        };
+        
+        fetchData();
     }, []);
 
     const getStatusBadge = (status: string) => {
@@ -64,44 +74,69 @@ const CarsTable = () => {
         );
     };
 
+    const getFeaturedBadge = (isFeatured: boolean) => {
+        if (isFeatured) {
+            return (
+                <div className="flex items-center px-4 py-1.5 rounded-full bg-yellow-50">
+                    <StarIcon className="w-4 h-4 mr-2 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-medium text-yellow-600">
+                        {t("Featured")}
+                    </span>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <div className="mt-6 flow-root">
             <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
                     <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
                         <div className="md:hidden">
-                            {cars?.map((c) => (
-                                <div key={c.id} className="mb-6 w-full rounded-md bg-white p-4">
-                                    <div className="flex items-center justify-center border-b pb-4">
-                                        <div>
-                                            <CarImage
-                                                variant="regular"
-                                                coverImage={c.imageUrl}
-                                            />
-                                            <p className="text-sm text-center text-gray-500">
-                                                {c.brand} {c.model} {c.year}
-                                            </p>
+                            {cars?.map((c) => {
+                                const isFeatured = c.id === featuredCarId;
+                                return (
+                                    <div key={c.id} className="mb-6 w-full rounded-md bg-white p-4">
+                                        <div className="flex items-center justify-center border-b pb-4">
+                                            <div className="relative">
+                                                <CarImage
+                                                    variant="regular"
+                                                    coverImage={c.imageUrl}
+                                                />
+                                                {isFeatured && (
+                                                    <div className="absolute top-0 right-0 p-1 bg-yellow-400 rounded-full">
+                                                        <StarIcon className="h-4 w-4 text-white" />
+                                                    </div>
+                                                )}
+                                                <p className="text-sm text-center text-gray-500">
+                                                    {c.brand} {c.model} {c.year}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="flex w-full items-center justify-between border-b py-5">
+                                            <div className="flex w-1/2 flex-col">
+                                                <p className="text-xs">{t("Price")}</p>
+                                                <p className="font-medium">{c.pricePerDay}</p>
+                                            </div>
+                                            <div className="flex w-1/2 flex-col">
+                                                <p className="text-xs">{t("Fuel_Type")}</p>
+                                                <p className="font-medium">{t(c.fuelType || "")}</p>
+                                            </div>
+                                        </div>
+                                        <div className="pt-4 text-sm border-b py-5">
+                                            <p>{t(c.transmission || "")} </p>
+                                        </div>
+                                        <div className="flex justify-end pe-4 pt-4 gap-3">
+                                            {c.id && <FeaturedCarButton carId={c.id} isFeatured={isFeatured} onUpdate={() => {
+                                                setFeaturedCarId(c.id || "");
+                                            }} />}
+                                            {c.id && <UpdateCar id={c.id}/>}
+                                            {c.id && <DeleteCar id={c.id}/>}
                                         </div>
                                     </div>
-                                    <div className="flex w-full items-center justify-between border-b py-5">
-                                        <div className="flex w-1/2 flex-col">
-                                            <p className="text-xs">{t("Price")}</p>
-                                            <p className="font-medium">{c.pricePerDay}</p>
-                                        </div>
-                                        <div className="flex w-1/2 flex-col">
-                                            <p className="text-xs">{t("Fuel_Type")}</p>
-                                            <p className="font-medium">{t(c.fuelType || "")}</p>
-                                        </div>
-                                    </div>
-                                    <div className="pt-4 text-sm border-b py-5">
-                                        <p>{t(c.transmission || "")} </p>
-                                    </div>
-                                    <div className="flex justify-end pe-4 pt-4 gap-3">
-                                        {c.id && <UpdateCar id={c.id}/>}
-                                        {c.id && <DeleteCar id={c.id}/>}
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
 
                         <Table className="hidden min-w-full text-gray-900 md:table">
@@ -131,6 +166,9 @@ const CarsTable = () => {
                                     <TableHead scope="col" className="px-3 py-5 font-medium">
                                         {t("Status")}
                                     </TableHead>
+                                    <TableHead scope="col" className="px-3 py-5 font-medium">
+                                        {t("Featured")}
+                                    </TableHead>
                                     <TableHead scope="col" className="relative py-3 pl-6 pr-3">
                                         <span className="sr-only">{t("Actions")}</span>
                                     </TableHead>
@@ -138,6 +176,7 @@ const CarsTable = () => {
                             </TableHeader>
                             <TableBody className="bg-white">
                                 {cars.map((car: CarParams) => {
+                                    const isFeatured = car.id === featuredCarId;
                                     return (
                                         <TableRow
                                             key={car.id}
@@ -171,9 +210,14 @@ const CarsTable = () => {
                                             <TableCell className="whitespace-nowrap px-3 py-3">
                                                 {getStatusBadge(car.availabilityStatus || "")}
                                             </TableCell>
-
+                                            <TableCell className="whitespace-nowrap px-3 py-3">
+                                                {getFeaturedBadge(isFeatured)}
+                                            </TableCell>
                                             <TableCell className="whitespace-nowrap py-3 pl-6 pr-3">
                                                 <div className="flex justify-end gap-3">
+                                                    {car.id && <FeaturedCarButton carId={car.id} isFeatured={isFeatured} onUpdate={() => {
+                                                        setFeaturedCarId(car.id || "");
+                                                    }} />}
                                                     {car.id && <UpdateCar id={car.id}/>}
                                                     {car.id && <DeleteCar id={car.id}/>}
                                                 </div>

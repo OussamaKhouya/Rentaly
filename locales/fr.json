@@ -96,14 +96,16 @@
   },
   "Admin": {
     "Dashboard": "Tableau de bord",
+    "Informations": "Informations",
     "Cars": "Voitures",
     "Accounts": "Comptes",
     "Settings": "Paramètres",
     "Sign_Out": "Se déconnecter",
     "Add_Car": "Ajouter une voiture",
-    "Edit_Car": "Modifier la voiture",
+    "Edit_Car": "Modifier",
     "Delete_Car": "Supprimer la voiture",
     "Car_Details": "Détails de la voiture",
+    "Car_Description": "Description de la voiture",
     "Brand": "Marque",
     "Model": "Modèle",
     "Year": "Année",
@@ -121,6 +123,7 @@
     "Car_Added": "Voiture ajoutée avec succès",
     "Car_Updated": "Voiture mise à jour avec succès",
     "Car_Deleted": "Voiture supprimée avec succès",
+    "Car_Featured_Success": "La voiture a été définie comme vedette avec succès",
     "Something_Went_Wrong": "Quelque chose s'est mal passé",
     "Required_Field": "Ce champ est requis",
     "Invalid_Price": "Veuillez entrer un prix valide",
@@ -142,6 +145,12 @@
     "Update_Car": "Mettre à jour la voiture",
     "Upload_Car_Image": "Mettre à jour l'image",
     "Upload_Car": "Mettre à jour la voiture",
+    "Featured": "Spécial",
+    "Set_Featured": "Définir comme vedette",
+    "Already_Featured": "Déjà en vedette",
+    "Hide_Menu": "Masquer le menu",
+    "Show_Menu": "Afficher le menu",
+    "Visit_Site": "Visiter le site",
     "Account": {
       "account": "Compte",
       "info": "Informations",
@@ -165,5 +174,19 @@
         "Message": "Une erreur s'est produite lors de la mise à jour du compte"
       }
     }
+  },
+  "Auth": {
+    "Welcome_Back": "Bienvenue sur le tableau de bord",
+    "Create_Account": "Créez votre compte",
+    "Access_Control": "Accédez au panneau de contrôle et personnalisez l'expérience de vos clients.",
+    "Complete_Fields": "Veuillez remplir tous les champs et utiliser un mot de passe puissant pour protéger votre compte.",
+    "Sign_In": "Se connecter",
+    "Sign_Up": "S'inscrire",
+    "Already_Have_Account": "Vous avez déjà un compte ?",
+    "Success_Sign_In": "Vous vous êtes connecté avec succès.",
+    "Success_Sign_Up": "Vous vous êtes inscrit avec succès.",
+    "Error_Sign_In": "Erreur lors de la connexion",
+    "Error_Sign_Up": "Erreur lors de l'inscription",
+    "An_Error_Occurred": "Une erreur s'est produite."
   }
 }
