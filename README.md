@@ -7,6 +7,13 @@ This is a Web app, that helps managers effortlessly oversee their car rental age
 - Tailwind CSS
 - Drizzle ORM
 - Neon Serverless Postgres
+
+
+## Snapshots
+### Home Page
+![rentaly-web.gif](imgs/rentaly-web.gif)
+### Dashboard
+![rentaly-admin.gif](imgs/rentaly-admin.gif)
 ## Features
 
 - User Autentication (Sign Up, Login, Logout)
@@ -22,11 +29,6 @@ npm install
 npm run dev
 ```
 
-## Snapshots
-### Home Page
-![rentaly-web.gif](imgs/rentaly-web.gif)
-### Dashboard
-![rentaly-admin.gif](imgs/rentaly-admin.gif)
 
 
 
